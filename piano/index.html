@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Color Piano&mdash;Learn to play songs on the piano!</title>
+ <link rel="icon" href="media/48x48-piano.png" type="image/x-icon" /> 
+ <!--- Color Piano -->
+ <link rel="stylesheet" href="min/app.css" type="text/css" media="screen" />
+	<script src="min/app.js" type="text/javascript"></script>
+	<script src="inc/filer.js" type="text/javascript"></script>
+</head>
+<body>
+<!---
+	<div class="meny">
+		<h2>More apps</h2>
+		<div id="apps">
+			<a href="http://mudcu.be/piano/" target="_blank" title="Color Piano"><li><img src="./media/ux/lazy.png" data-src="../media/apps/color-piano.png" class="lazy" width="100" height="100"/><div>Color Piano<br><span>Learn to play your<br>favorite classics!</span></div></li></a>
+			<a href="http://colrd.com/create/gradient/" target="_blank" title="Gradient Creator"><li><img src="./media/ux/lazy.png" data-src="../media/apps/gradient-creator.png" class="lazy" width="100" height="100"/><div>Gradient Creator<br><span>Design beautiful<br>CSS3 gradients!</span></div></li></a>
+			<a href="http://colrd.com/create/palette/" target="_blank" title="Palette Creator"><li><img src="./media/ux/lazy.png" data-src="../media/apps/palette-creator.png" class="lazy" width="100" height="100"/><div>Palette Creator<br><span>Design beautiful<br>CSS3 gradients!</span></div></li></a>
+			<a href="http://colrd.com/create/color/" target="_blank" title="Color Creator"><li><img src="./media/ux/lazy.png" data-src="../media/apps/color-creator.png" class="lazy" width="100" height="100"/><div>Color Creator<br><span>Design beautiful<br>CSS3 gradients!</span></div></li></a>
+			<a href="http://mudcu.be/sphere/" target="_blank" title="Color Sphere"><li><img src="./media/ux/lazy.png" data-src="../media/apps/color-sphere.png" class="lazy" width="100" height="100"/><div>Color Sphere<br><span>Design beautiful<br>CSS3 gradients!</span></div></li></a>
+			<a href="http://colrd.com/create/image-dna/" target="_blank" title="Image DNA"><li><img src="./media/ux/lazy.png" data-src="../media/apps/image-dna.png" class="lazy" width="100" height="100"/><div>Image DNA<br><span>Design beautiful<br>CSS3 gradients!</span></div></li></a>
+		</div>
+		<div style="margin-bottom: 20px;"></div>
+	</div>
+	<div class="meny-arrow">&#x25BA;</div>
+	<div class="meny-contents">
+	
+	
+	</div>
+	<div class="addthis_toolbox addthis_peekaboo_style addthis_default_style addthis_label_style addthis_32x32_style">
+		<a class="addthis_button_more">Share</a>
+		<ul>
+			<li><a class="addthis_button_preferred_1"></a></li>
+			<li><a class="addthis_button_preferred_2"></a></li>
+			<li><a class="addthis_button_preferred_3"></a></li>
+			<li><a class="addthis_button_preferred_4"></a></li>
+		</ul>
+	</div>
+-->
+<div id="head">
+	<div class="wrapper">
+		<div id="playback">
+			<img id="control-play" class="control" src="media/play.png" toggled="true" width="32" height="32"/>
+			<img id="control-backward" class="control" src="media/backward.png" width="32" height="32"/>
+			<img id="control-forward" class="control" src="media/forward.png" width="32" height="32"/>
+			<div id="playback-title"></div>
+			<div class="time-controls">
+			 <span id="time2" class="time" style="text-align: left;">-0:00</span>
+			 <span id="capsule">
+				<span id="cursor"></span>
+			 </span>
+			</div>
+		</div>
+		<div id="theory" style="display: none;">
+			<img src="media/replay.png" style="vertical-align:middle; float: right; cursor: pointer;" alt="Replay"/>
+		</div>
+		<div id="settings">
+			<div id="open" title="Toggle File Browser"></div>
+			<div id="view-song" title="Piano Player Mode"></div>
+			<div id="configure" title="Configure"></div>
+		</div>
+	</div>
+</div>
+<div class="everything">
+	<div id="container">
+		<canvas id="animate" width="990"></canvas>
+		<canvas id="piano_bg" width="990"></canvas>
+		<canvas id="white_keys" width="990"></canvas>
+		<canvas id="black_keys" width="990"></canvas>
+		<div id="keys"></div>
+	</div>
+</div>
+<div class="tools">	
+	<div id="tools">
+		<span style="text-align: center; width: 100%; display: inline-block; color: #aaa ">
+			<a href="http://mudcu.be/" target="_blank">by Mudcu.be</a> /
+			<a href="https://github.com/mudcube/MIDI.js" target="_blank">built with MIDI.js</a>
+		</span>
+		<hr>
+		<li style="display:none">
+			<input id="taptap">
+			<input type="button" id="tempo-from-tap" value="taptap">
+		</li>
+		<li style="display:none">
+			<input id="find">
+			<input id="find-chord" type="button" value="find keys">
+		</li>
+		<span style="text-align: center; width: 100%; display: inline-block; ">Drag & Drop MIDI files into your browser to view/play!</span>
+		<span style="text-align: center; width: 100%; display: inline-block; display: none; ">
+			<input type="text" value="http://" id="load-external-midi" style="width: 350px;" placeholder="Enter the URL of a MIDI file.">
+			<input type="button" id="load-external-midi" value="Load MIDI">
+		</span>
+	</div>
+</div>
+</body>
+</html>
