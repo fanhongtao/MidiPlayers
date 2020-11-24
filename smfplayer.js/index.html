@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml" prefix="og: http://ogp.me/ns#" class="h-100">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description"
+    content="Soundfont2 based Web MIDI Player written in JavaScript. This MIDI Player can playback XG or GS formatted midi file." />
+  <meta name="author" content="Masashi Yoshikawa (Logue)" />
+  <title>Standard MIDI Player for Web</title>
+  <!-- ogp -->
+  <meta property="og:title" content="Standard MIDI Player for Web" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://logue.github.io/smfplayer.js/" />
+  <meta property="og:image" content="https://logue.github.io/smfplayer.js/icon.png" />
+  <meta property="og:site_name" content="Logue's Lab" />
+  <meta property="og:description"
+    content="Soundfont2 based Web MIDI Player written in JavaScript. This MIDI Player can playback XG or GS formatted midi file." />
+  <meta property="fb:app_id" content="129144050466298" />
+  <meta property="article:publisher" content="https://www.facebook.com/logue256" />
+  <meta name="twitter:card" content="Summary" />
+  <meta name="twitter:site" content="@logue256" />
+  <meta name="twitter:title" content="Standard MIDI Player for Web" />
+  <meta name="twitter:url" content="https://logue.github.io/smfplayer.js/" />
+  <meta name="twitter:description"
+    content="Soundfont2 based Web MIDI Player written in JavaScript. This MIDI Player can playback XG or GS formatted midi file. #Midi #smfplater" />
+  <meta name="twitter:image" content="https://logue.github.io/smfplayer.js/icon.png" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-33600926-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "UA-33600926-1");
+  </script>
+
+  <link rel="shortcuticon" href="favicon.ico" />
+  <link rel="canonical" href="https://logue.github.io/smfplayer.js/" />
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net/" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+    integrity="sha256-aAr2Zpq8MZ+YA/D6JtRD3xtrwpEz2IqOS+pWD/7XKIw=" crossorigin="anonymous" />
+  <!-- Web Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c|Varela+Round&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dseg@0.45.1/css/dseg.css"
+    integrity="sha256-0kP9GjBI5CdeL8PdmthxSmNbvRHsfz5Me/r6FK7UVJ4=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" />
+  <style>
+    /*<!CDATA[*/
+
+    html {
+      position: relative;
+      min-height: 100%;
+    }
+
+    body {
+      font-family: "Varela Round", "Rounded Mplus 1c", sans-serif;
+      margin-bottom: 70px;
+    }
+
+    .percentage {
+      font-family: "DSEG14-Modern";
+    }
+
+    .control-btn {
+      height: 50px;
+      width: 50px;
+    }
+
+    .Clock-Wrapper {
+      font-family: "DSEG14-Modern";
+      font-style: italic;
+      position: relative;
+      height: 36px;
+    }
+
+    .Clock-Time-Front {
+      z-index: 100;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .Clock-Time-Background {
+      z-index: 50;
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: rgba(0, 0, 0, 0.1);
+    }
+
+    iframe {
+      width: 100%;
+      height: 680px;
+      border: thin;
+    }
+
+    /*]]>*/
+  </style>
+</head>
+
+<body class="d-flex flex-column h-100">
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand" href="index.html#">MIDI Player XG</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html#">Sample
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/logue/smfplayer.js/">smfplayer.js</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/logue/sf2synth.js/">sf2synth.js</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/logue/MabiMmlEmu/">MabiMmlEmu</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main role="main" class="flex-shrink-0 my-3">
+    <div class="container">
+      <div id="info" class="alert alert-warning alert-dismissible fade show" role="alert">
+        <p class="mb-0">Initializing...</p>
+        <div class="progress hide" id="progress">
+          <div class="progress-bar percentage" role="progressbar" style="width: 0%;" aria-valuemin="0" aria-valuemin="0"
+            aria-valuemax="100">
+            0%
+          </div>
+        </div>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <!-- player panel-->
+      <div class="card mb-3" id="player">
+        <div class="card-header">
+          <h2 class="h5 float-left">MIDI Player</h2>
+          <!-- Social Icons -->
+          <div class="float-right" id="socialbuttons">
+            <button class="btn btn-secondary facebook" title="Facebook">
+              <i class="fab fa-facebook-square fa-lg"></i>
+            </button>
+            <button class="btn btn-secondary twitter" title="Twitter">
+              <i class="fab fa-twitter-square fa-lg"></i>
+            </button>
+            <button class="btn btn-secondary line" title="Line">
+              <i class="fab fa-line fa-lg"></i>
+            </button>
+            <!--button class="btn btn-secondary btn-lg hatena"><i class="fas fa-h-square fa-lg"></i></button-->
+          </div>
+          <div class="clearfix"></div>
+          <!-- Tab menu -->
+          <ul class="nav nav-tabs card-header-tabs" id="player-tablist" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="player-tab" data-toggle="tab" href="index.html#player-tab-content" role="tab"
+                aria-controls="plyaer-tab-content" aria-selected="true">
+                <i class="far fa-play-circle"></i>
+                Player</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="option-tab" data-toggle="tab" href="index.html#option-tab-content" role="tab"
+                aria-controls="option-tab-content" aria-selected="false">
+                <i class="fas fa-wrench"></i>
+                Option</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card-body">
+          <div class="tab-content" id="plyaer-tab-contents">
+            <div class="tab-pane fade show active" id="player-tab-content" role="tabpanel" aria-labelledby="player-tab">
+              <!-- Player control -->
+              <div class="d-sm-flex align-items-center">
+                <div>
+                  <button type="button" class="btn btn-info btn-lg control-btn" id="prev" disabled="disabled"
+                    title="Previous Music">
+                    <i class="fas fa-chevron-left"></i>
+                  </button>
+                  <button type="button" class="btn btn-primary btn-lg control-btn" id="play" disabled="disabled"
+                    title="Play / Pause">
+                    <i class="fas fa-play"></i>
+                  </button>
+                  <button type="button" class="btn btn-danger btn-lg control-btn" id="stop" disabled="disabled"
+                    title="Stop">
+                    <i class="fas fa-stop"></i>
+                  </button>
+                  <button type="button" class="btn btn-info btn-lg control-btn" id="next" disabled="disabled"
+                    title="Next Music">
+                    <i class="fas fa-chevron-right"></i>
+                  </button>
+                  <button type="button" class="btn btn-warning btn-lg control-btn" id="panic" disabled="disabled"
+                    title="Panic">
+                    <i class="fas fa-exclamation"></i>
+                  </button>
+                  <!--button type="button" class="btn btn-primary btn-lg control-btn" id="copy" disabled="disabled" title="Copy midi URL to clipboard">
+                    <i class="fas fa-copy"></i>
+                  </button-->
+                </div>
+                <!-- time -->
+                <div class="flex-grow-1 ml-sm-3 my-3">
+                  <!--div class="Clock-Wrapper">
+                    <span class="Clock-Time-Background h4">
+                      ~:~~:~~ / ~:~~:~~
+                    </span>
+                    <span id="clock" class="Clock-Time-Front h4">
+                    <span id="time-now">0:00:00</span>
+                    /
+                    <span id="time-total">0:00:00</span>
+                    </span>
+                  </div-->
+                  <div class="progress" id="music-progress">
+                    <div class="progress-bar percentage" role="progressbar" style="width: 0%;" aria-valuemin="0"
+                      aria-valuemin="0" aria-valuemax="100">
+                      0%
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Midi selector -->
+              <div class="row">
+                <div class="col-md-8 col-xs-12">
+                  <div class="form-group">
+                    <label for="files">Sequence file: </label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-music"></i>
+                        </span>
+                      </div>
+                      <select id="files" class="form-control"></select>
+                      <div class="input-group-append">
+                        <button class="btn btn-secondary" type="button" title="Download" id="download">
+                          <i class="fas fa-download"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                  <div class="input-group">
+                    <label for="zips">Zip archive file:</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="far fa-file-archive"></i>
+                        </span>
+                      </div>
+                      <select id="zips" class="form-control">
+                        <option value="midifiles/YAMAHA mididata library.zip">YAMAHA mididata library.zip</option>
+                        <option value="midifiles/適当詰め合わせ.zip" selected="selected">適当詰め合わせ.zip</option>
+                        <option disabled="disabled">------------------------------</option>
+                        <optgroup label="MML">
+                          <option value="midifiles/mp2mml_sample.zip">Maple Story MML Sample.zip</option>
+                          <option value="midifiles/3MLE_Sample.zip">3MLE Sample</option>
+                          <option value="midifiles/MakimabiSequence_Sample.zip">Makimabi Sequence Sample</option>
+                          <option value="midifiles/MabiIcco_Sample.zip">MabiIcco Sample</option>
+                        </optgroup>
+                        <option disabled="disabled">------------------------------</option>
+                        <option value="midifiles/Midi01.zip">Midi01.zip</option>
+                        <option value="midifiles/Midi03.zip">Midi03.zip</option>
+                        <option value="midifiles/Midi04.zip">Midi04.zip</option>
+                        <option disabled="disabled">------------------------------</option>
+                        <optgroup label="Famicom / NES / Super Famicom / SNES">
+                          <option value="midifiles/Chrono_Trigger.zip">Chrono Trigger</option>
+                          <option value="midifiles/Dragon_Warrior_2.zip">Dragon Quest II</option>
+                          <option value="midifiles/Dragon_Warrior_3.zip">Dragon Quest III</option>
+                          <option value="midifiles/Dragon_Warrior_4.zip">Dragon Quest IV</option>
+                          <option value="midifiles/Final_Fantasy_4.zip">Final Fantasy IV</option>
+                          <option value="midifiles/Final_Fantasy_5.zip">Final Fantasy V</option>
+                          <option value="midifiles/Final_Fantasy_6.zip">Final Fantasy VI</option>
+                          <option value="midifiles/Secret_of_Mana.zip">Secret of Mana</option>
+                          <option value="midifiles/Super_Donkey_Kong.zip">Super Donkey Kong</option>
+                          <option value="midifiles/Zelda_3_-_A_Link_to_the_Past.zip">Legend of Zelda</option>
+                        </optgroup>
+                        <optgroup label="PlayStation / PlayStation2">
+                          <option value="midifiles/A-Train_Global.zip">A-Train 4 Global</option>
+                          <option value="midifiles/Alundra.zip">Alundra</option>
+                          <option value="midifiles/Breath_of_Fire_4.zip">Breath of Fire IV</option>
+                          <option value="midifiles/Final_Fantasy_10.zip">Final Fantasy X</option>
+                          <option value="midifiles/Final_Fantasy_11.zip">Final Fantasy XI</option>
+                          <option value="midifiles/Final_Fantasy_7.zip">Final Fantasy VII</option>
+                          <option value="midifiles/Final_Fantasy_8.zip">Final Fantasy VIII</option>
+                          <option value="midifiles/Final_Fantasy_9.zip">Final Fantasy XI</option>
+                          <option value="midifiles/Legend_of_Mana.zip">Legend of Mana</option>
+                          <option value="midifiles/Silent_Hill.zip">Silent Hill</option>
+                          <option value="midifiles/Star_Ocean_the_second_story.zip">Star Ocean the Second Story</option>
+                          <option value="midifiles/Valkyrie_Profile.zip">Valkyrie Profile</option>
+                        </optgroup>
+                        <optgroup label="PC">
+                          <option value="midifiles/A-Train.zip">A-Train (PC98 / MacOS)</option>
+                          <option value="midifiles/Lemmings.zip">Lemmings Soundtrack (Amiga / DOS / MacOS / PC98)</option>
+                          <option value="midifiles/Marathon1.zip">Marathon Soundtrack (MacOS)</option>
+                          <option value="midifiles/SimCity2000.zip">SimCity 2000 Soundtrack (DOS / MacOS)</option>
+                          <option value="midifiles/UO_MIDI_Music.zip">Ultima Online Soundtrack (Windows)</option>
+                          <option value="midifiles/sor.zip">Sorcerian (PC98)</option>
+                        </optgroup>
+                        <optgroup label="MegaDrive / Saturn / Dreamcast">
+                          <option value="midifiles/Outrun.zip">Outrun</option>
+                          <option value="midifiles/PSO.zip">Phantasy Star Online</option>
+                          <option value="midifiles/Sonic_the_Hedgehog.zip">Sonic the Hedgehog</option>
+                        </optgroup>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Meta info -->
+              <div class="row">
+                <div class="col-md-7 col-xs-12">
+                  <label for="music_title">Title</label>
+                  <input type="text" class="form-control" id="music_title" readonly="readonly" />
+                </div>
+                <div class="col-md-5 col-xs-12">
+                  <label for="copyright ">Copyright</label>
+                  <input type="text" class="form-control" id="copyright" readonly="readonly" />
+                </div>
+                <div class="col-12">
+                  <label for="text_event">Text</label>
+                  <input type="text" class="form-control" id="text_event" readonly="readonly" />
+                </div>
+                <div class="col-12">
+                  <div class="d-flex justify-content-center">
+                    <div class="bg-light rounded" id="lyrics"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="option-tab-content" role="tabpanel" aria-labelledby="option-tab">
+              <div class="row">
+                <!-- Loop setting -->
+                <div class="col-md-5 col-xs-12">
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="random" />
+                    <label class="custom-control-label" for="random"><i class="fas fa-random"></i> Random</label>
+                  </div>
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="playerloop"
+                      onchange="player.setLoop(this.checked);" />
+                    <label class="custom-control-label" for="playerloop"><i class="fas fa-redo"></i> Loop</label>
+                  </div>
+                  <hr />
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="cc111loop"
+                      onchange="player.setCC111Loop(this.checked);" />
+                    <label class="custom-control-label" for="cc111loop">CC#111 Loop</label>
+                  </div>
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="falcomloop"
+                      onchange="player.setFalcomLoop(this.checked);" />
+                    <label class="custom-control-label" for="falcomloop">Marker A-B (Ys2 Eternal)</label>
+                  </div>
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="falcomloop"
+                      onchange="player.setMFiLoop(this.checked);" />
+                    <label class="custom-control-label" for="falcomloop">MFi</label>
+                  </div>
+                </div>
+                <!-- Tempo and volume -->
+                <div class="col-md-7 col-xs-12">
+                  <div class="form-group">
+                    <label for="tempo">Tempo: x
+                      <span id="tempo_value" class="badge badge-secondary">1.0</span>
+                    </label>
+                    <div class="d-flex">
+                      <div><i class="far fa-clock"></i></div>
+                      <input id="tempo" type="range" class="custom-range ml-1" min="0.1" max="10.0" step="0.1"
+                        value="1.0" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="volume">Master Volume:
+                      <span id="volume_value" class="badge badge-secondary">0.5</span>
+                    </label>
+                    <div class="d-flex">
+                      <div><i class="fas fa-volume-down"></i></div>
+                      <input id="volume" type="range" class="custom-range mx-1" min="0" max="1" step="0.01"
+                        value="0.5" />
+                      <div><i class="fas fa-volume-up"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-muted">
+          (drag and drop *.mid, *.mld, *.ms2mml, *.mms, *.mml, *.mmi file
+          here, to play local midi file.)
+        </div>
+      </div>
+      <!-- WebMidiLink Placeholder -->
+      <div class="card">
+        <div class="card-header">
+          <div class="form-group mb-0">
+            <h2 class="h5 mb-0"><label for="synth">Synthesyther</label></h2>
+            <select id="synth" class="form-control">
+              <option value="./wml.html?soundfont=Yamaha XG Sound Set.sf2">Yamaha XG Sound Set.sf2</option>
+              <option value="./wml.html?soundfont=Yamaha XG Sound Set.sf2&amp;ui=false">Yamaha XG Sound Set.sf2 (Disable
+                Keyboard)</option>
+              <option value="./wml.html?soundfont=Yamaha XG Sound Set Ver.2.0.sf2" selected="selected">Yamaha XG Sound
+                Set Ver2.0.sf2</option>
+              <option value="./wml.html?soundfont=Yamaha XG Sound Set Ver.2.0.sf2&amp;ui=false">Yamaha XG Sound Set.sf2
+                (Disable Keyboard)</option>
+              <option value="https://logue.dev/Wml2WebMidiApi/wml.html">Web MIDI API (Experimental)</option>
+              <option value="https://logue.dev/MabiMmlEmu/wml.html">Mabinogi MML (MSXSpirit.sf2)</option>
+              <option value="https://logue.dev/MabiMmlEmu/wml.html?ui=false">Mabinogi MML (MSXSpirit.sf2) (Disable
+                Keyboard)</option>
+              <option disabled="disabled">------------------------------</option>
+              <option value="https://www.g200kg.com/webmidilink/gmplayer/">GMPlayer</option>
+              <option value="https://aikelab.net/websynth/">aike : WebAudioSynth</option>
+              <option value="https://script-synthesizer.herokuapp.com/">mohayonao : timbre.js</option>
+              <!--option value="//beatonica.com/">aike : Beatonica</option-->
+              <!--option value="https://www.g200kg.com/en/docs/webmidilink/webbeeper.html">g200kg : WebBeeper</option-->
+              <option value="https://aikelab.net/bitmaker/">aike : Bitmaker</option>
+            </select>
+            <small class="form-text text-muted">Select
+              <a href="https://www.g200kg.com/en/docs/webmidilink/">WebMidiLink <i
+                  class="fas fa-external-link-alt"></i></a>
+              based synthesizer</small>
+          </div>
+        </div>
+        <div class="card-body p-0" id="wml"></div>
+      </div>
+    </div>
+  </main>
+  <footer class="footer mt-auto py-3 mb-0 bg-light">
+    <address class="container mb-0">
+      <a href="https://github.com/gree/smfplayer.js">SMF.Player</a>
+      <i class="far fa-copyright"></i> 2013 imaya / GREE Inc. /
+      <i class="far fa-copyright"></i> 2013-2020 by
+      <a href="https://logue.be/">Logue</a>. Licensed under the
+      <a href="https://opensource.org/licenses/mit-license.php">MIT License</a>.
+    </address>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha256-Xt8pc4G0CdcRvI0nZ2lRpZ4VHng0EoUDMlGcBSQ9HiQ=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/zlibjs@0.3.1/bin/unzip.min.js"
+    integrity="sha256-pKobUkzPTKMnWX5yXGUt55Lp7W9pboaAhaXiI/hgIr4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/gh/Takazudo/jQuery.socialthings@0.1.10/jquery.socialthings.min.js"
+    integrity="sha256-x1bbXqksATv7EnepzQLhlHlbt2DOHbU+8+/nodOpdpk=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/encoding-japanese@1.0.30/encoding.min.js"
+    integrity="sha256-3N1q3S/Cg/TL0ER062kNT2VYIsHLzEqymlj2dEXYhXI=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/query-string@1.0.1/query-string.js"
+    integrity="sha256-grrS5HRy2p4Z2sCglfc9r6rqRBewKCdWzuWhbUpIEJ4=" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@logue/smfplayer@0.3.4/bin/smf.player.min.js"
+    integrity="sha256-iba7iwzOXCYk+GGiG7n08b9yJVj/kgwGikE7h80HL3c=" crossorigin="anonymous"></script>
+  <script>
+    /*<![CDATA[*/
+    // インターバル関数用。準備完了フラグ
+    var isReady = false;
+
+    // QueryStrings
+    const params = queryString.parse(window.location.hash);
+
+    // SMF Player
+    const player = new SMF.Player("#wml");
+
+    const isIOS = /iP(hone|(o|a)d)/.test(navigator.userAgent);
+
+    // 利用可能な拡張子
+    const availableExts = ['.mid', '.midi', '.mld', '.mml', '.mms', '.mmi', '.mp2mml'];
+
+    // スマフォの場合、軽量版にする上、UIを隠す
+    const wml = encodeURI(
+      "./wml.html?soundfont=" +
+      (isIOS
+        ? "Yamaha XG Sound Set.sf2&ui=false"
+        : "Yamaha XG Sound Set Ver.2.0.sf2")
+    );
+
+    var $progress = $("#progress");
+
+    window.requestFileSystem =
+      window.requestFileSystem || window.webkitRequestFileSystem;
+    /**
+     * メイン処理
+     */
+    $(document).ready(function () {
+      $(":input").attr("disabled", "disabled");
+      // AudioContextが使用可能かのチェック
+      window.AudioContext =
+        window.AudioContext ||
+        window.webkitAudioContext ||
+        window.mozAudioContext;
+      if (typeof window.AudioContext === "undefined") {
+        $("#info")
+          .addClass("alert-danger")
+          .removeClass("alert-warning")
+          .text(
+            "Your browser has not supported AudioContent function. Please use Firefox or Blink based browser. (such as Chrome)"
+          );
+        return;
+      }
+      // fileプロトコルは使用不可。（Ajaxを使うため）
+      if (location.protocol === "file:") {
+        $("#info")
+          .addClass("alert-danger")
+          .removeClass("alert-warning")
+          .text("This program require runs by server.");
+        return;
+        //}else if (location.protocol === 'http:') {
+        //    location.href = 'https://logue.github.io/smfplayer.js';
+      }
+
+      // smfplayer.jsの初期化
+      player.setLoop($("#playerloop").is(":checked"));
+      player.setCC111Loop($("#cc111loop").is(":checked"));
+      player.setFalcomLoop($("#falcomloop").is(":checked"));
+      player.setMFiLoop($("#mfiloop").is(":checked"));
+      player.setTempoRate($("#tempo").val());
+      player.setMasterVolume($("#volume").val() * 16383);
+      // player.setMasterChannel(new TimerMasterChannel(TimerMasterChannel.MODE_DEFAULT));
+      // WebMidiLink設定
+      player.setWebMidiLink(wml, "wml");
+
+      // Zipファイルの取得
+      $("#files").on("change", function (e) {
+        handleSelect(this);
+      });
+
+      $("#zips").on("change", function (e) {
+        loadSample($(this).val());
+      });
+
+      if (params.zip && !initialized) {
+        // クエリからZipファイルを選択
+        $("#zips").val(params.zip);
+        loadSample(params.zip);
+      } else {
+        randomArchive();
+        loadSample($("#zips").val());
+      }
+
+      // MIDIファイルのドラッグアンドドロップ
+      $("#player *")
+        .on("drop", function (e) {
+          if (e.originalEvent.dataTransfer) {
+            if (e.originalEvent.dataTransfer.files.length) {
+              e.preventDefault();
+              e.stopPropagation();
+              /*UPLOAD FILES HERE*/
+              handleFile(e.originalEvent.dataTransfer.files[0]);
+            }
+          }
+          $("#player").removeClass("text-white bg-danger");
+        })
+        .on("dragover", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          $("#player").addClass("text-white bg-danger");
+        })
+        .on("dragleave", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          $("#player").removeClass("text-white bg-danger");
+        });
+
+      // テンポ設定
+      $("#tempo").on("change", function () {
+        var value = $(this).val();
+        player.setTempoRate(value);
+        $("#tempo_value").text(value);
+      });
+
+      // マスターボリューム
+      $("#volume").on("change", function () {
+        var value = $(this).val();
+        player.setMasterVolume(value * 16383);
+        $("#volume_value").text(value);
+      });
+
+      // 前に戻るボタン
+      $("#prev").on("click", function () {
+        // 現在選択中の項目を取得
+        var selected_music = $("#files").prop("selectedIndex");
+        if (selected_music == $("#files option").length) {
+          // 末尾の場合、最後の曲へ
+          $("#files").prop("selectedIndex", $("#files option").length);
+        } else {
+          // 選択されている項目の前の項目を選択
+          $("#files").prop("selectedIndex", selected_music - 1);
+        }
+        handleSelect(document.getElementById("files"));
+      });
+
+      // 次に進むボタン
+      $("#next").on("click", function () {
+        var selected_music = $("#files").prop("selectedIndex");
+        if (selected_music == $("#files option").length) {
+          // 末尾の場合最初に戻る
+          $("#files").prop("selectedIndex", 0);
+        } else {
+          // 今選択されてる項目の次の項目を選択
+          $("#files").prop("selectedIndex", selected_music + 1);
+        }
+        handleSelect(document.getElementById("files"));
+      });
+
+      // 再生／一時停止ボタン
+      $("#play").on("click", function () {
+        if (player.pause) {
+          // 再生
+          player.play();
+        } else {
+          // 停止
+          player.stop();
+        }
+      });
+
+      // 停止ボタン
+      $("#stop").on("click", function () {
+        handleSelect(document.getElementById("files"));
+        // ハッシュを削除
+        history.pushState("", document.title, window.location.pathname);
+        setTimeout(function () {
+          player.stop();
+        }, 51); // よく分からんが非同期で止めるらしい
+      });
+
+      // パニックボタン
+      $("#panic").on("click", function () {
+        player.sendAllSoundOff();
+      });
+
+      // MIDIファイルのダウンロード
+      $("#download").on("click", function () {
+        // 選択状態を取得
+        var select = document.getElementById("files");
+        var option = select.querySelectorAll("option")[select.selectedIndex];
+        var filename = option.dataset.midiplayerFilename;
+
+        // arraybufferをbase64に変換
+        var binary = "";
+        var bytes = new Uint8Array(select.zip.decompress(filename));
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+          binary += String.fromCharCode(bytes[i]);
+        }
+
+        // この方法は泥臭い
+        window.location.href =
+          "data:audio/midi;base64," + window.btoa(binary);
+      });
+
+      // WebMidiLinkセレクタ
+      // うーん、デッドリンクだったり仕様が違ったりで全然使えないじゃん・・・。
+      /*
+    $.ajax({
+      type: 'GET',
+      url: 'http://www.g200kg.com/webmidilink/synthlist.js',
+      dataType: 'jsonp',
+      jsonpCallback: 'SynthListCallback',
+      success: function(json){
+        var $synths = $('#synth');
+        $synths.html('');
+        json.forEach(function(line){
+        var $option = $('<option>')
+            .val(line.url)
+            .text(line.name);
+        if (line.name == 'Yamaha XG Sound Set.sf2'){
+            $option.prop('selected', true);
+        }
+        $('#synth').append($option);
+        });
+      }
+    });
+    */
+      $("#synth").on("change", function (e) {
+        player.stop();
+        player.setWebMidiLink($(this).val(), "wml");
+      });
+
+      $("*[title]").tooltip();
+
+      /*
+    // 曲の位置を変更。将来実装予定・・・。
+    $('#music-progress').on('click', function(e){
+    ssvar progress_bar_percentage = e.offsetX / $(this).width();
+    ssplayer.setPosition( player.getLength() * progress_bar_percentage);
+    });
+    */
+    });
+
+    var $info = $("#info");
+
+    /**
+     * ファイルを読み込む
+     */
+    function handleFile(file) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        var input = new Uint8Array(e.target.result);
+        handleInput(file.name, input);
+        $("#info p").text = "Ready.";
+        $("#info").removeClass("alert-warning").addClass("alert-success");
+      };
+      reader.onloadstart = function (e) {
+        $("#info").removeClass("alert-success").addClass("alert-warning");
+      };
+
+      reader.onprogress = function (e) {
+        if (e.lengthComputable) {
+          var percentLoaded = (e.loaded / e.total) | (0 * 100);
+          $("#info div div")
+            .css("width", percentLoaded + "%")
+            .text(percentLoaded + "%");
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    }
+    var initialized = false;
+
+    /**
+     * Zipファイルの内容を取得し、selectタグに割り当てる
+     */
+    function loadSample(zipfile) {
+      const ready = (stream) => {
+        var input = new Uint8Array(stream);
+
+        // ファイルリストの子要素を一括削除
+        var select = document.getElementById("files");
+        while (select.firstChild) select.removeChild(select.firstChild);
+
+        // Zipファイルからファイル名一覧を取得
+        var zip = (select.zip = new Zlib.Unzip(input));
+        var filenames = zip.getFilenames().sort();
+        //console.log(filenames);
+
+        $("#info div")
+          .removeClass("progress-warning")
+          .addClass("progress-info")
+          .show();
+
+        // ファイル名一覧をセレクトボックスに流し込む
+        filenames.forEach(function (name, i) {
+          var ext = name.slice(name.lastIndexOf(".")).toLowerCase();
+          var percentLoaded = Math.round((i / filenames.length) * 10000);
+
+          $("#info p").text("Parsing zip file...");
+          $("#info div div")
+            .css("width", percentLoaded)
+            .text(percentLoaded + "%");
+
+          if (ext === "/" || !availableExts.includes(ext)) {
+            return;
+          }
+
+          var option = document.createElement("option");
+          // 項目名
+          option.textContent = Encoding.convert(name, "UNICODE", "AUTO");
+          // 実際のファイル名
+          option.setAttribute("data-midiplayer-filename", name);
+          // selectタグに流し込む
+          select.appendChild(option);
+        });
+
+        // 初期値が一番上の項目になるとつまらないのでランダム化
+        var prev = select.selectedIndex;
+        var next = prev;
+        while (prev == next) {
+          next = ~~(select.length * Math.random());
+        }
+        select.selectedIndex = next;
+
+        $("#info p").text("Ready.");
+        $("#info div").removeClass("progress-info").hide();
+        $("#info").removeClass("alert-warning").addClass("alert-success");
+        $(":input").removeAttr("disabled ");
+
+        if (params.file && !initialized) {
+          // クエリにファイル名が含まれている場合、それを選択
+          $("#files").val(params.file);
+          handleSelect(document.getElementById("files"));
+        }
+        initialized = true;
+      };
+
+      window.caches.open("zip").then((cache) => {
+        cache
+          .match(zipfile)
+          .then((response) => response.arrayBuffer())
+          .then((stream) => ready(stream))
+          .catch(() => {
+            // キャッシュ処理
+            fetch(zipfile)
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error("Network response was not ok.");
+                }
+                const copy = response.clone();
+                cache.put(zipfile, response);
+                return copy.arrayBuffer();
+              })
+              .then((stream) => ready(stream))
+              .catch((e) =>
+                console.error(
+                  "There has been a problem with your fetch operation: " +
+                  e.message
+                )
+              );
+            //.catch(e => alert('Save to cache. please reselect zip file.'));
+          });
+      });
+
+      /*
+    var xhr = new XMLHttpRequest();
+
+    // ZipファイルをXHRで読み込む（※jqueryのajax命令はarraybuffer非対応なため使えない）
+    xhr.open('GET', zipfile, true);
+    xhr.responseType = 'arraybuffer';
+    xhr.onload = function () {
+      var input = new Uint8Array(this.response);
+
+      // ファイルリストの子要素を一括削除
+      var select = document.getElementById('files');
+      while (select.firstChild) select.removeChild(select.firstChild);
+
+      // Zipファイルからファイル名一覧を取得
+      var zip = select.zip = new Zlib.Unzip(input);
+      var filenames = zip.getFilenames().sort();
+      //console.log(filenames);
+
+      $('#info div').removeClass('progress-warning').addClass('progress-info').show();
+
+      // ファイル名一覧をセレクトボックスに流し込む
+      filenames.forEach(function (name, i) {
+        var ext = name.slice(name.lastIndexOf('.')).toLowerCase();
+        var percentLoaded = Math.round((i / filenames.length) * 10000);
+
+        $('#info p').text('Parsing zip file...');
+        $('#info div div').css('width', percentLoaded).text(percentLoaded + '%');
+
+        // 拡張子がmid、midi、mldでない場合はスキップ
+        if (ext === '/' || !ext === 'mid' || !ext === 'midi' || !ext === 'mld') {
+          return;
+        }
+
+        var option = document.createElement('option');
+        // 項目名
+        option.textContent = Encoding.convert(name, 'UNICODE', 'SJIS');
+        // 実際のファイル名
+        option.setAttribute('data-midiplayer-filename', name);
+        // selectタグに流し込む
+        select.appendChild(option);
+      });
+
+      // 初期値が一番上の項目になるとつまらないのでランダム化
+      var prev = select.selectedIndex;
+      var next = prev;
+      while (prev == next) {
+        next = ~~(select.length * Math.random());
+      }
+      select.selectedIndex = next;
+
+      $('#info p').text('Ready.');
+      $('#info div').removeClass('progress-info').hide();
+      $('#info').removeClass('alert-warning').addClass('alert-success');
+      $(':input').removeAttr("disabled ");
+
+      if (params.file && !initialized) {
+        // クエリにファイル名が含まれている場合、それを選択
+        $('#files').val(params.file);
+        handleSelect(document.getElementById('files'));
+      }
+      initialized = true;
+    };
+
+    // ArrayBuffer形式でZipファイルを読み込む
+    xhr.responseType = 'arraybuffer';
+
+    // ローディング開始時
+    xhr.onloadstart = function (e) {
+      $('#info').removeClass('alert-success').addClass('alert-warning');
+      $('#info div').addClass('progress-warning').show();
+      $('#info div div').css('width', 0);
+      $(':input').attr('disabled', 'disabled');
+    };
+
+    // エラー処理
+    xhr.onerror = function (e) {
+      $('#info p').removeClass('alert-warning').addClass('alert-danger');
+      $('#info div div').hide();
+      switch (e.target.error.code) {
+        case e.target.error.NOT_FOUND_ERR:
+          $('#info p').text('File Not Found!');
+          break;
+        case e.target.error.NOT_READABLE_ERR:
+          $('#info p').text('File is not readable');
+          break;
+        case e.target.error.ABORT_ERR:
+          break; // noop
+        default:
+          $('#info p').text('An error occurred reading this file.');
+      };
+      $(':input').removeAttr('disabled');
+    }
+
+    // ローディング中
+    xhr.onprogress = function (e) {
+      if (e.lengthComputable) {
+        var percentLoaded = Math.round((e.loaded / e.total) * 10000);
+        $('#info p').text('Now loading zip file...');
+
+        $('#info div div').css('width', percentLoaded).text(percentLoaded + '%');
+      }
+    };
+
+    // xhr開始
+    xhr.send();
+    */
+    }
+    /**
+     * 選択されたファイルを解凍
+     */
+    function handleSelect(select) {
+      var option = select.querySelectorAll("option")[select.selectedIndex];
+      var filename = option.dataset.midiplayerFilename;
+
+      if (filename) {
+        handleInput(filename, select.zip.decompress(filename));
+
+        // ページのタイトルを反映
+        var title = document.getElementById("files").value;
+        title = title.substr(0, title.lastIndexOf("."));
+        document.title =
+          title +
+          " " +
+          document.getElementById("zips").value +
+          " / SMF.Player";
+
+        var hash =
+          "#zip=" +
+          encodeURIComponent($("#zips").val()) +
+          "&file=" +
+          encodeURIComponent(filename);
+        var url = $('link[rel="canonical"]').attr("href") + hash;
+
+        // MIDIファイルに埋め込まれたメタデータを取得
+        $("#music_title").val(
+          Encoding.convert(player.getSequenceName(1), "UNICODE", "AUTO")
+        );
+        $("#copyright").val(
+          Encoding.convert(player.getCopyright(), "UNICODE", "AUTO")
+        );
+
+        // ソーシャルボタン書き換え
+        //$('#socialbuttons .facebook').facebookShareButton({
+        //    url:url,
+        //    text: document.title
+        //});
+
+        $("#socialbuttons .twitter").twitterShareButton({
+          width: 626,
+          height: 436,
+          name: document.title,
+          url: url,
+          via: "logue256",
+        });
+
+        $("#socialbuttons .facebook").click(() => {
+          window.open(
+            "https://www.facebook.com/sharer/sharer.php?u=" +
+            encodeURIComponent(url) +
+            "&t=" +
+            encodeURIComponent(document.title),
+            "Facebook",
+            "width=400,height=400"
+          );
+        });
+        $("#socialbuttons .line").click(() => {
+          window.open(
+            "http://line.me/R/msg/text/?" +
+            encodeURIComponent(document.title + "\n" + url),
+            "Line",
+            "width=600,height=600"
+          );
+        });
+        //$('#socialbuttons .hatena').click(function(){
+        //  window.open('https://b.hatena.ne.jp/add?mode=confirm&shareUrl=' + encodeURIComponent(url) + '&description=' + encodeURIComponent(document.title), "Hatena", "width=400,height=400");
+        //});
+
+        // クリップボード
+        $("#copy").data("ClipboardText", url);
+
+        // pushstateを使用
+        if (window.history && window.history.pushState) {
+          window.history.pushState(document.title, null, hash);
+          return false;
+        }
+      }
+    }
+    /**
+     * MIDI/MLDファイルを読み込ませる
+     * @param string filename ファイル名
+     * @param array buffer ファイルの中身
+     */
+    function handleInput(filename, buffer) {
+      // 再生中のMIDIを停止。
+      player.stop();
+      player.sendAllSoundOff();
+
+      switch (filename.split(".").pop().toLowerCase()) {
+        case "midi":
+        case "mid":
+          // Load MIDI file
+          player.loadMidiFile(buffer);
+          break;
+        case "mld":
+          // Load Polyphonic Ringtone File
+          player.loadMldFile(buffer);
+          break;
+        case "ms2mml":
+          // Load Maple Story 2 MML File
+          player.loadMs2MmlFile(buffer);
+          break;
+        case "mms":
+          // Load MakiMabi Sequence MML File
+          player.loadMakiMabiSequenceFile(buffer);
+          break;
+        case "mml":
+          // Load 3MLE MML File
+          player.load3MleFile(buffer);
+          break;
+        case "mmi":
+          // Load Mabicco MML File
+          player.loadMabiIccoFile(buffer);
+          break;
+      }
+
+      // マスターボリュームが低いままになるので
+      player.setMasterVolume($("#volume").val() * 16383);
+      $("#time-total").text(player.getTime(player.timeTotal));
+      //よく分からんが非同期で読み込むらしい
+      setTimeout(function () {
+        player.play();
+      }, 50);
+    }
+
+    /**
+     * ランダム再生
+     */
+    function randomPlay() {
+      var select = document.getElementById("files");
+      select.selectedIndex = ~~(select.length * Math.random());
+      handleSelect(select);
+    }
+
+    function randomArchive() {
+      var select = document.getElementById("zips");
+      select.selectedIndex = ~~(select.length * Math.random());
+      handleSelect(select);
+    }
+
+    /**
+     * IFRAMEから送られてくるwindow.postMessageを監視
+     */
+    $(window).on("message", function (e) {
+      var event = e.originalEvent.data; // Should work.
+
+      switch (event) {
+        case "endoftrack":
+          // 曲が終了したとき
+          // 曲一覧の現在選択中の項目番号
+          var selected_music = $("#music").prop("selectedIndex");
+
+          player.stop();
+
+          // 曲は終了しても、player.pauseの値が変化しないので、ここで、再生ボタンにする。
+          $("#play")
+            .html('<i class="fas fa-play"></i>')
+            .removeClass("btn-success")
+            .addClass("btn-primary");
+          if ($("#random").is(":checked")) {
+            randomPlay();
+          } else {
+            var selected_music = $("#files").prop("selectedIndex");
+            if (selected_music !== 0) {
+              // ループで最初に戻った場合（player.positionがリセットされた場合）
+              // 次の曲を選択
+              if (selected_music == $("#files option").length) {
+                // 末尾の場合最初に戻る
+                $("#files").prop("selectedIndex", 0);
+              } else {
+                $("#files").prop("selectedIndex", selected_music + 1);
+              }
+              // 曲を変更
+              handleSelect(document.getElementById("files"));
+            }
+          }
+          break;
+        case "progress":
+          $("#info p").text("Loading soundfont...");
+          break;
+        case "link,ready":
+          // WMLが読み込まれた時
+          isReady = true;
+          if (document.querySelector("#random").checked) {
+            handleSelect(document.querySelector("#files"));
+          }
+          $("#info").addClass("alert-success").removeClass("alert-warning");
+          $("#info p").text("Ready.");
+          $(":input").prop("disabled", false);
+          break;
+      }
+    });
+
+    let parentLyrics = "";
+    let parentTextEvent = "";
+    let lyric = "";
+    /**
+     * インターバル関数
+     */
+    setInterval(function () {
+      if (isReady) {
+        // player.pauseの値で再生/一時停止ボタンを変化させる
+        // ただし、smfplayer.jsのバグでplayer.loadMidiFile()が実行された直後、
+        // 再生していない状態でもplayer.pauseの値がtrueになってしまうので、
+        // もう一工夫いる。
+        if (player.pause) {
+          $("#play")
+            .html('<i class="fas fa-play"></i>')
+            .removeClass("btn-success")
+            .addClass("btn-primary");
+        } else {
+          $("#play")
+            .html('<i class="fas fa-pause"></i>')
+            .removeClass("btn-primary")
+            .addClass("btn-success");
+        }
+        var percentage =
+          ((player.getPosition() / player.getLength()) * 100) | 0;
+        $("#music-progress .progress-bar")
+          .css("width", percentage + "%")
+          .text(percentage + "%");
+        $("#time-now").text(player.getTime(player.time));
+
+        let lyrics = player.getLyrics();
+
+        if (parentLyrics !== lyrics) {
+          // 歌詞の処理。（誰得？）
+          // やる気ないので、WebMidiカラオケ作りたい人は下の資料を参考にがんばってくれ。
+          // https://jp.yamaha.com/files/download/other_assets/7/321757/xfspc.pdf
+          const word = Encoding.convert(lyrics, "UNICODE", "AUTO");
+          if (word.length !== 0) {
+            if (word.match(/^</)) {
+              lyric = ""; // 改ページ
+              $("#lyrics").html("");
+            }
+
+            word
+              .replace(/\//g, "<br />") // 改行
+              .replace(/>/g, "    ") // インデント
+              .replace(/&m/g, "👨‍🎤") // 男性歌手
+              .replace(/&f/g, "👩‍🎤") // 女性歌手
+              .replace(/&c/g, "👫"); // コーラス
+
+            lyric += word;
+
+            $("#lyrics").html(lyric);
+          }
+        }
+        if (parentTextEvent !== player.getTextEvent()) {
+          $("#text_event").val(
+            Encoding.convert(player.getTextEvent(), "UNICODE", "AUTO")
+          );
+        }
+
+        parentLyrics = player.getLyrics();
+        parentTextEvent = player.getTextEvent();
+      }
+    }, 100);
+      /*]]>*/
+  </script>
+</body>
+
+</html>
