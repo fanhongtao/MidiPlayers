@@ -22,5 +22,5 @@ For window users, you can use [EasyWebSvr](EasyWebSvr) or [Simple Local Http Web
 
 Open URLs with a browser:
 
-* http://local:8000/piano/
-* http://local:8000/smfplayer.js/
+* http://localhost:8000/piano/
+* http://localhost:8000/smfplayer.js/
