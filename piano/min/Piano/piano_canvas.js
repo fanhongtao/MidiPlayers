@@ -247,10 +247,10 @@ var loader,
       (a.style.height = window.innerHeight + "px"), (a.style.width = window.innerWidth + "px");
   };
   Event.add("body", "ready", function () {
-    var b = document.createElement("script");
-    b.type = "text/javascript";
-    b.src = "https://chrome.google.com/webstore/widget/developer/scripts/widget.js";
-    document.head.appendChild(b);
+    /* var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://chrome.google.com/webstore/widget/developer/scripts/widget.js";
+    document.head.appendChild(script); */
     Event.add(".tools", "mousedown", function (a) {
       MIDI.UI.enableConfigure(!1);
     });
@@ -278,13 +278,13 @@ var loader,
     "undefined" !== typeof widgets.Loader && (MIDI.loader = loader = new widgets.Loader());
     a();
     MIDI.Player.timeWarp = Piano.timeWarp;
-    b = document.createElement("link");
-    b.href = "https://fonts.googleapis.com/css?family=Andada";
-    b.rel = "stylesheet";
-    b.type = "text/css";
-    document.getElementsByTagName("head")[0].appendChild(b);
-    b = document.getElementById("container");
-    Event.add(b, "contextmenu", function (a) {
+    var link = document.createElement("link");
+    link.href = "../cdn/fonts.googleapis/andada/andada.css"; /* "https://fonts.googleapis.com/css?family=Andada"; */
+    link.rel = "stylesheet";
+    link.type = "text/css";
+    document.getElementsByTagName("head")[0].appendChild(link);
+    var container = document.getElementById("container");
+    Event.add(container, "contextmenu", function (a) {
       Event.prevent(a);
     });
     canvas.animate = document.getElementById("animate");
