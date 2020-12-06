@@ -1,183 +1,186 @@
 "undefined" === typeof MIDI && (MIDI = {});
 "undefined" === typeof MIDI.Player && (MIDI.Player = {});
 (function () {
-  var b = MIDI.Player;
-  b.callback = void 0;
-  b.currentTime = 0;
-  b.endTime = 0;
-  b.restart = 0;
-  b.playing = !1;
-  b.timeWarp = 1;
-  b.start = b.resume = function () {
-    -1 > b.currentTime && (b.currentTime = -1);
-    l(b.currentTime);
+  var root = MIDI.Player;
+  root.callback = undefined;
+  root.currentTime = 0;
+  root.endTime = 0;
+  root.restart = 0;
+  root.playing = false;
+  root.timeWarp = 1;
+  root.start = root.resume = function () {
+    -1 > root.currentTime && (root.currentTime = -1);
+    startAudio(root.currentTime);
   };
-  b.pause = function () {
-    var a = b.restart;
-    n();
-    b.restart = a;
+  root.pause = function () {
+    var tmp = root.restart;
+    stopAudio();
+    root.restart = tmp;
   };
-  b.stop = function () {
-    n();
-    b.restart = 0;
-    b.currentTime = 0;
+  root.stop = function () {
+    stopAudio();
+    root.restart = 0;
+    root.currentTime = 0;
   };
-  b.addListener = function (a) {
-    k = a;
+  root.addListener = function (callback) {
+    onMidiEvent = callback;
   };
-  b.removeListener = function () {
-    k = void 0;
+  root.removeListener = function () {
+    onMidiEvent = undefined;
   };
-  b.clearAnimation = function () {
-    b.interval && window.clearInterval(b.interval);
+  root.clearAnimation = function () {
+    root.interval && window.clearInterval(root.interval);
   };
-  b.setAnimation = function (a) {
-    var c = "function" === typeof a ? a : a.callback;
-    a = a.interval || 30;
-    var e = 0,
-      k = 0,
-      f = 0;
-    b.clearAnimation();
-    b.interval = window.setInterval(function () {
-      if (0 !== b.endTime) {
-        b.playing
-          ? ((e = f === b.currentTime ? k - new Date().getTime() : 0),
-            (e = 0 === b.currentTime ? 0 : b.currentTime - e),
-            f !== b.currentTime && ((k = new Date().getTime()), (f = b.currentTime)))
-          : (e = b.currentTime);
-        var a = e / 1e3,
-          l = a / 60,
-          a = 60 * l + (a - 60 * l),
-          l = b.endTime / 1e3;
-        -1 > l - a || c({ now: a, end: l, events: d });
+  root.setAnimation = function (config) {
+    var callback = "function" === typeof config ? config : config.callback;
+    var interval = config.interval || 30;
+    var currentTime = 0,
+      tOurTime = 0,
+      tTheirTime = 0;
+    root.clearAnimation();
+    root.interval = window.setInterval(function () {
+      if (0 !== root.endTime) {
+        root.playing
+          ? ((currentTime = tTheirTime === root.currentTime ? tOurTime - new Date().getTime() : 0),
+            (currentTime = 0 === root.currentTime ? 0 : root.currentTime - currentTime),
+            tTheirTime !== root.currentTime && ((tOurTime = new Date().getTime()), (tTheirTime = root.currentTime)))
+          : (currentTime = root.currentTime);
+        var total = currentTime / 1000,
+          minutes = total / 60,
+          t1 = 60 * minutes + (total - 60 * minutes),
+          t2 = root.endTime / 1000;
+        -1 > t2 - t1 || callback({ now: t1, end: t2, events: noteRegistrar });
       }
-    }, a);
+    }, interval);
   };
-  b.loadMidiFile = function () {
-    b.replayer = new Replayer(MidiFile(b.currentData), b.timeWarp);
-    b.data = b.replayer.getData();
-    b.endTime = f();
+  root.loadMidiFile = function () {
+    root.replayer = new Replayer(MidiFile(root.currentData), root.timeWarp);
+    root.data = root.replayer.getData();
+    root.endTime = getLength();
   };
-  b.loadFile = function (a, d) {
-    b.stop();
-    if (-1 !== a.indexOf("base64,")) {
-      var c = window.atob(a.split(",")[1]);
-      b.currentData = c;
-      b.loadMidiFile();
-      d && d(c);
+  root.loadFile = function (file, callback) {
+    root.stop();
+    if (-1 !== file.indexOf("base64,")) {
+      var data = window.atob(file.split(",")[1]);
+      root.currentData = data;
+      root.loadMidiFile();
+      callback && callback(data);
     } else
-      (c = new XMLHttpRequest()),
-        c.open("GET", a),
-        c.overrideMimeType("text/plain; charset=x-user-defined"),
-        (c.onreadystatechange = function () {
+      (fetch = new XMLHttpRequest()),
+        fetch.open("GET", file),
+        fetch.overrideMimeType("text/plain; charset=x-user-defined"),
+        (fetch.onreadystatechange = function () {
           if (4 === this.readyState && 200 === this.status) {
             for (
-              var a = this.responseText || "", c = [], e = a.length, k = String.fromCharCode, f = 0;
-              f < e;
-              f++
+              var t = this.responseText || "", ff = [], mx = t.length, scc = String.fromCharCode, z = 0;
+              z < mx;
+              z++
             )
-              c[f] = k(a.charCodeAt(f) & 255);
-            a = c.join("");
-            b.currentData = a;
-            b.loadMidiFile();
-            d && d(a);
+              ff[z] = scc(t.charCodeAt(z) & 255);
+            var data = ff.join("");
+            root.currentData = data;
+            root.loadMidiFile();
+            callback && callback(data);
           }
         }),
-        c.send();
+        fetch.send();
   };
-  var a = [],
-    c,
-    e = 0,
-    d = {},
-    k = void 0,
-    m = function (a, e, f, n, g, m) {
+  var eventQueue = [],
+    queuedTime,
+    startTime = 0,
+    noteRegistrar = {},
+    onMidiEvent = undefined,
+    scheduleTracking = function (channel, note, currentTime, offset, message, velocity) {
       return window.setTimeout(function () {
-        var n = { channel: a, note: e, now: f, end: b.endTime, message: g, velocity: m };
-        128 === g ? delete d[e] : (d[e] = n);
-        k && k(n);
-        b.currentTime = f;
-        b.currentTime === c && c < b.endTime && l(c, !0);
-      }, f - n);
+        var data = { channel: channel, note: note, now: currentTime, end: root.endTime, message: message, velocity: velocity };
+        128 === message ? delete noteRegistrar[note] : (noteRegistrar[note] = data);
+        onMidiEvent && onMidiEvent(data);
+        root.currentTime = currentTime;
+        root.currentTime === queuedTime && queuedTime < root.endTime && startAudio(queuedTime, true);
+      }, currentTime - offset);
     },
-    g = function () {
+    getContext = function () {
       if ("WebAudioAPI" === MIDI.lang) return MIDI.Player.ctx;
-      b.ctx || (b.ctx = { currentTime: 0 });
-      return b.ctx;
+      root.ctx || (root.ctx = { currentTime: 0 });
+      return root.ctx;
     },
-    f = function () {
-      for (var a = b.data, d = a.length, c = 0.5, e = 0; e < d; e++) c += a[e][1];
-      return c;
+    getLength = function () {
+      for (var data = root.data, length = data.length, totalTime = 0.5, n = 0; n < length; n++) totalTime += data[n][1];
+      return totalTime;
     },
-    l = function (d, k) {
-      if (b.replayer) {
-        k ||
-          ("undefined" === typeof d && (d = b.restart),
-          b.playing && n(),
-          (b.playing = !0),
-          (b.data = b.replayer.getData()),
-          (b.endTime = f()));
-        var l,
-          s = 0,
-          t = 0,
-          v = b.data,
-          w = g(),
-          F = v.length;
-        c = 0.5;
-        e = w.currentTime;
-        for (var B = 0; B < F; B++)
-          if (((l = v[B]), (l = l[1] || 1e-11), c + l <= d)) s = c += l;
+    startAudio = function (currentTime, fromCache) {
+      if (root.replayer) {
+        fromCache ||
+          ("undefined" === typeof currentTime && (currentTime = root.restart),
+          root.playing && stopAudio(),
+          (root.playing = true),
+          (root.data = root.replayer.getData()),
+          (root.endTime = getLength()));
+        var note,
+          offset = 0,
+          messages = 0,
+          data = root.data,
+          ctx = getContext(),
+          length = data.length;
+        queuedTime = 0.5;
+        startTime = ctx.currentTime;
+        for (var B = 0; B < length; B++)
+          if (((l = data[B]), (l = l[1] || 1e-11), queuedTime + l <= currentTime)) offset = queuedTime += l;
           else break;
-        for (; B < F && 100 > t; B++) {
-          l = v[B];
-          c += l[1] || 1e-11;
-          d = c - s;
-          var x = l[0].event;
-          if ("channel" === x.type) {
-            var u = x.channel;
-            switch (x.subtype) {
+        for (; B < length && 100 > messages; B++) {
+          l = data[B];
+          queuedTime += l[1] || 1e-11;
+          currentTime = queuedTime - offset;
+          var event = l[0].event;
+          if ("channel" === event.type) {
+            var channel = event.channel;
+            switch (event.subtype) {
               case "noteOn":
-                if (MIDI.channels[u].mute) break;
-                l = x.noteNumber - (b.MIDIOffset || 0);
-                a.push({
-                  event: x,
-                  source: MIDI.noteOn(u, x.noteNumber, x.velocity, d / 1e3 + w.currentTime),
-                  interval: m(u, l, c, s, 144, x.velocity),
+                if (MIDI.channels[channel].mute) break;
+                note = event.noteNumber - (root.MIDIOffset || 0);
+                eventQueue.push({
+                  event: event,
+                  source: MIDI.noteOn(channel, event.noteNumber, event.velocity, currentTime / 1000 + ctx.currentTime),
+                  interval: scheduleTracking(channel, note, queuedTime, offset, 144, event.velocity),
                 });
-                t++;
+                messages++;
                 break;
               case "noteOff":
-                if (MIDI.channels[u].mute) break;
-                l = x.noteNumber - (b.MIDIOffset || 0);
-                a.push({
-                  event: x,
-                  source: MIDI.noteOff(u, x.noteNumber, d / 1e3 + w.currentTime),
-                  interval: m(u, l, c, s, 128),
+                if (MIDI.channels[channel].mute) break;
+                note = event.noteNumber - (root.MIDIOffset || 0);
+                eventQueue.push({
+                  event: event,
+                  source: MIDI.noteOff(channel, event.noteNumber, currentTime / 1000 + ctx.currentTime),
+                  interval: scheduleTracking(channel, note, queuedTime, offset, 128),
                 });
             }
           }
         }
       }
     },
-    n = function () {
-      var c = g();
-      b.playing = !1;
-      for (b.restart += 1e3 * (c.currentTime - e); a.length; )
-        (c = a.pop()),
-          window.clearInterval(c.interval),
-          c.source &&
-            ("number" === typeof c.source ? window.clearTimeout(c.source) : c.source.disconnect(0));
-      for (var f in d)
-        (c = d[f]),
-          144 === d[f].message &&
-            k &&
-            k({
-              channel: c.channel,
-              note: c.note,
-              now: c.now,
-              end: c.end,
+    stopAudio = function () {
+      var ctx = getContext();
+      root.playing = false;
+      root.restart += 1000 * (ctx.currentTime - startTime);
+      while (eventQueue.length) {
+        var o = eventQueue.pop();
+        window.clearInterval(o.interval);
+          o.source &&
+            ("number" === typeof o.source ? window.clearTimeout(o.source) : o.source.disconnect(0));
+      }
+      for (var key in noteRegistrar) {
+        var o = noteRegistrar[key];
+          144 === noteRegistrar[key].message &&
+            onMidiEvent &&
+            onMidiEvent({
+              channel: o.channel,
+              note: o.note,
+              now: o.now,
+              end: o.end,
               message: 128,
-              velocity: c.velocity,
+              velocity: o.velocity,
             });
-      d = {};
+      }
+      noteRegistrar = {};
     };
 })();
