@@ -1,9 +1,9 @@
 /* min/MIDI.js/examples/inc/colorspace.js */
 
-/* min/MIDI.js/js/midi/xxx-1.js */
-/* min/MIDI.js/js/midi/xxx-2.js */
-/* min/MIDI.js/js/midi/xxx-3.js */
-/* min/MIDI.js/js/midi/xxx-4.js */
+/* min/MIDI.js/js/midi/audioDetect-1909386c.js */
+/* min/MIDI.js/js/midi/loadPlugin-1909386c.js */
+/* min/MIDI.js/js/midi/player-1909386c.js */
+/* min/MIDI.js/js/midi/plugin-1909386c.js */
 
 /* min/MusicTheory.js */
 
