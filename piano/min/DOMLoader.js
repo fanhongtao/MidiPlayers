@@ -4,83 +4,83 @@ DOMLoader.script = function () {
   this.loading = {};
   return this;
 };
-DOMLoader.script.prototype.add = function (b) {
-  var a = this;
-  "string" === typeof b && (b = { src: b });
-  var c = b.srcs;
-  "undefined" === typeof c && (c = [{ src: b.src, verify: b.verify }]);
-  var e = document.getElementsByTagName("head")[0],
-    d = function (b, d) {
-      if (!(a.loaded[b.src] || (d && "undefined" === typeof window[d]))) {
-        a.loaded[b.src] = !0;
-        if (a.loading[b.src]) a.loading[b.src]();
-        delete a.loading[b.src];
-        b.callback && b.callback();
-        "undefined" !== typeof l && l();
+DOMLoader.script.prototype.add = function (config) {
+  var that = this;
+  "string" === typeof config && (config = { src: config });
+  var srcs = config.srcs;
+  "undefined" === typeof srcs && (srcs = [{ src: config.src, verify: config.verify }]);
+  var doc = document.getElementsByTagName("head")[0],
+    testElement = function (element, test) {
+      if (!(that.loaded[element.src] || (test && "undefined" === typeof window[test]))) {
+        that.loaded[element.src] = true;
+        if (that.loading[element.src]) that.loading[element.src]();
+        delete that.loading[element.src];
+        element.callback && element.callback();
+        "undefined" !== typeof getNext && getNext();
       }
     },
-    k = [],
-    m = function (c) {
-      "string" === typeof c && (c = { src: c, verify: b.verify });
-      if (/([\w\d.])$/.test(c.verify))
-        if (((c.test = c.verify), "object" === typeof c.test))
-          for (var f in c.test) k.push(c.test[f]);
-        else k.push(c.test);
-      a.loaded[c.src] ||
-        ((f = document.createElement("script")),
-        (f.onreadystatechange = function () {
-          ("loaded" !== this.readyState && "complete" !== this.readyState) || d(c);
+    batchTest = [],
+    addElement = function (element) {
+      "string" === typeof element && (element = { src: element, verify: config.verify });
+      if (/([\w\d.])$/.test(element.verify))
+        if (((element.test = element.verify), "object" === typeof element.test))
+          for (var key in element.test) batchTest.push(element.test[key]);
+        else batchTest.push(element.test);
+      that.loaded[element.src] ||
+        ((script = document.createElement("script")),
+        (script.onreadystatechange = function () {
+          ("loaded" !== this.readyState && "complete" !== this.readyState) || testElement(element);
         }),
-        (f.onload = function () {
-          d(c);
+        (script.onload = function () {
+          testElement(element);
         }),
-        (f.onerror = function () {}),
-        f.setAttribute("type", "text/javascript"),
-        f.setAttribute("src", c.src),
-        e.appendChild(f),
-        (a.loading[c.src] = function () {}));
+        (script.onerror = function () {}),
+        script.setAttribute("type", "text/javascript"),
+        script.setAttribute("src", element.src),
+        doc.appendChild(script),
+        (that.loading[element.src] = function () {}));
     },
-    g = function (a) {
-      if (a) d(a, a.test);
-      else for (var e = 0; e < c.length; e++) d(c[e], c[e].test);
-      for (var f = !0, e = 0; e < k.length; e++) {
-        var l = k[e];
-        if (l && -1 !== l.indexOf(".")) {
-          var l = l.split("."),
-            m = window[l[0]];
-          "undefined" !== typeof m &&
-            (2 === l.length
-              ? "undefined" === typeof m[l[1]] && (f = !1)
-              : 3 === l.length && "undefined" === typeof m[l[1]][l[2]] && (f = !1));
-        } else "undefined" === typeof window[l] && (f = !1);
+    onLoad = function (element) {
+      if (element) testElement(element, element.test);
+      else for (var n = 0; n < srcs.length; n++) testElement(srcs[n], srcs[n].test);
+      for (var istrue = true, n = 0; n < batchTest.length; n++) {
+        var test = batchTest[n];
+        if (test && -1 !== test.indexOf(".")) {
+          var test = test.split("."),
+            level0 = window[test[0]];
+          "undefined" !== typeof level0 &&
+            (2 === test.length
+              ? "undefined" === typeof level0[test[1]] && (istrue = false)
+              : 3 === test.length && "undefined" === typeof level0[test[1]][test[2]] && (istrue = false));
+        } else "undefined" === typeof window[test] && (istrue = false);
       }
-      !b.strictOrder && f
-        ? b.callback && b.callback()
+      !config.strictOrder && istrue
+        ? config.callback && config.callback()
         : setTimeout(function () {
-            g(a);
+            onLoad(element);
           }, 10);
     };
-  if (b.strictOrder) {
-    var f = -1,
-      l = function () {
-        f++;
-        if (c[f]) {
-          var d = c[f],
-            e = d.src;
-          a.loading[e]
-            ? (a.loading[e] = function () {
-                d.callback && d.callback();
-                l();
+  if (config.strictOrder) {
+    var ID = -1,
+      getNext = function () {
+        ID++;
+        if (srcs[ID]) {
+          var element = srcs[ID],
+            src = element.src;
+          that.loading[src]
+            ? (that.loading[src] = function () {
+                element.callback && element.callback();
+                getNext();
               })
-            : a.loaded[e]
-            ? l()
-            : (m(d), g(d));
-        } else b.callback && b.callback();
+            : that.loaded[src]
+            ? getNext()
+            : (addElement(element), onLoad(element));
+        } else config.callback && config.callback();
       };
-    l();
+    getNext();
   } else {
-    for (f = 0; f < c.length; f++) m(c[f]);
-    g();
+    for (ID = 0; ID < srcs.length; ID++) addElement(srcs[ID]);
+    onLoad();
   }
 };
 
