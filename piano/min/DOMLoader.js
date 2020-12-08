@@ -1,85 +1,140 @@
-"undefined" === typeof DOMLoader && (DOMLoader = {});
+if (typeof DOMLoader === "undefined") var DOMLoader = {};
+
 DOMLoader.script = function () {
   this.loaded = {};
   this.loading = {};
   return this;
 };
+
 DOMLoader.script.prototype.add = function (config) {
   var that = this;
-  "string" === typeof config && (config = { src: config });
+  if (typeof config === "string") {
+    config = { src: config };
+  }
   var srcs = config.srcs;
-  "undefined" === typeof srcs && (srcs = [{ src: config.src, verify: config.verify }]);
-  var doc = document.getElementsByTagName("head")[0],
-    testElement = function (element, test) {
-      if (!(that.loaded[element.src] || (test && "undefined" === typeof window[test]))) {
-        that.loaded[element.src] = true;
-        if (that.loading[element.src]) that.loading[element.src]();
-        delete that.loading[element.src];
-        element.callback && element.callback();
-        "undefined" !== typeof getNext && getNext();
-      }
-    },
-    batchTest = [],
-    addElement = function (element) {
-      "string" === typeof element && (element = { src: element, verify: config.verify });
-      if (/([\w\d.])$/.test(element.verify))
-        if (((element.test = element.verify), "object" === typeof element.test))
-          for (var key in element.test) batchTest.push(element.test[key]);
-        else batchTest.push(element.test);
-      that.loaded[element.src] ||
-        ((script = document.createElement("script")),
-        (script.onreadystatechange = function () {
-          ("loaded" !== this.readyState && "complete" !== this.readyState) || testElement(element);
-        }),
-        (script.onload = function () {
-          testElement(element);
-        }),
-        (script.onerror = function () {}),
-        script.setAttribute("type", "text/javascript"),
-        script.setAttribute("src", element.src),
-        doc.appendChild(script),
-        (that.loading[element.src] = function () {}));
-    },
-    onLoad = function (element) {
-      if (element) testElement(element, element.test);
-      else for (var n = 0; n < srcs.length; n++) testElement(srcs[n], srcs[n].test);
-      for (var istrue = true, n = 0; n < batchTest.length; n++) {
-        var test = batchTest[n];
-        if (test && -1 !== test.indexOf(".")) {
-          var test = test.split("."),
-            level0 = window[test[0]];
-          "undefined" !== typeof level0 &&
-            (2 === test.length
-              ? "undefined" === typeof level0[test[1]] && (istrue = false)
-              : 3 === test.length && "undefined" === typeof level0[test[1]][test[2]] && (istrue = false));
-        } else "undefined" === typeof window[test] && (istrue = false);
-      }
-      !config.strictOrder && istrue
-        ? config.callback && config.callback()
-        : setTimeout(function () {
-            onLoad(element);
-          }, 10);
-    };
-  if (config.strictOrder) {
-    var ID = -1,
-      getNext = function () {
-        ID++;
-        if (srcs[ID]) {
-          var element = srcs[ID],
-            src = element.src;
-          that.loading[src]
-            ? (that.loading[src] = function () {
-                element.callback && element.callback();
-                getNext();
-              })
-            : that.loaded[src]
-            ? getNext()
-            : (addElement(element), onLoad(element));
-        } else config.callback && config.callback();
+  if (typeof srcs === "undefined") {
+    srcs = [
+      {
+        src: config.src,
+        verify: config.verify,
+      },
+    ];
+  }
+  /// adding the elements to the head
+  var doc = document.getElementsByTagName("head")[0];
+  ///
+  var testElement = function (element, test) {
+    if (that.loaded[element.src]) return;
+    if (test && typeof window[test] === "undefined") return;
+    that.loaded[element.src] = true;
+    //
+    if (that.loading[element.src]) that.loading[element.src]();
+    delete that.loading[element.src];
+    //
+    if (element.callback) element.callback();
+    if (typeof getNext !== "undefined") getNext();
+  };
+  ///
+  var batchTest = [];
+  var addElement = function (element) {
+    if (typeof element === "string") {
+      element = {
+        src: element,
+        verify: config.verify,
       };
+    }
+    if (/([\w\d.])$/.test(element.verify)) {
+      element.test = element.verify;
+      if (typeof element.test === "object") {
+        for (var key in element.test) {
+          batchTest.push(element.test[key]);
+        }
+      } else {
+        batchTest.push(element.test);
+      }
+    }
+    if (that.loaded[element.src]) return;
+    var script = document.createElement("script");
+    script.onreadystatechange = function () {
+      if (this.readyState !== "loaded" && this.readyState !== "complete") return;
+      testElement(element);
+    };
+    script.onload = function () {
+      testElement(element);
+    };
+    script.onerror = function () {};
+    script.setAttribute("type", "text/javascript");
+    script.setAttribute("src", element.src);
+    doc.appendChild(script);
+    that.loading[element.src] = function () {};
+  };
+  /// checking to see whether everything loaded properly
+  var onLoad = function (element) {
+    if (element) {
+      testElement(element, element.test);
+    } else {
+      for (var n = 0; n < srcs.length; n++) {
+        testElement(srcs[n], srcs[n].test);
+      }
+    }
+    var istrue = true;
+    for (var n = 0; n < batchTest.length; n++) {
+      var test = batchTest[n];
+      if (test && test.indexOf(".") !== -1) {
+        test = test.split(".");
+        var level0 = window[test[0]];
+        if (typeof level0 === "undefined") continue;
+        if (test.length === 2) {
+          if (typeof level0[test[1]] === "undefined") {
+            istrue = false;
+          }
+        } else if (test.length === 3) {
+          if (typeof level0[test[1]][test[2]] === "undefined") {
+            istrue = false;
+          }
+        }
+      } else {
+        if (typeof window[test] === "undefined") {
+          istrue = false;
+        }
+      }
+    }
+    if (!config.strictOrder && istrue) {
+      if (config.callback) config.callback();
+    } else {
+      setTimeout(function () {
+        onLoad(element);
+      }, 10);
+    }
+  };
+  /// loading methods;  strict ordering or loose ordering
+  if (config.strictOrder) {
+    var ID = -1;
+    var getNext = function () {
+      ID++;
+      if (!srcs[ID]) {
+        if (config.callback) config.callback();
+      } else {
+        var element = srcs[ID];
+        var src = element.src;
+        if (that.loading[src]) {
+          that.loading[src] = function () {
+            if (element.callback) element.callback();
+            getNext();
+          };
+        } else if (!that.loaded[src]) {
+          addElement(element);
+          onLoad(element);
+        } else {
+          getNext();
+        }
+      }
+    };
     getNext();
   } else {
-    for (ID = 0; ID < srcs.length; ID++) addElement(srcs[ID]);
+    for (var ID = 0; ID < srcs.length; ID++) {
+      addElement(srcs[ID]);
+    }
     onLoad();
   }
 };
