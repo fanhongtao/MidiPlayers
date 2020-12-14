@@ -170,7 +170,8 @@ var loader,
         ? "chrome-extension:" === window.location.protocol
           ? Piano.loadExternalMIDICallback(host + "/audio/" + m)
           : DOMLoader.script.add({
-              src: "https://galactic.ink/piano/midi-to-json.php?query=" + encodeURIComponent(m),
+              // src: "https://galactic.ink/piano/midi-to-json.php?query=" + encodeURIComponent(m),
+              src: "/cgi-bin/midi-to-json.py?query=" + encodeURIComponent(m),
             })
         : DOMLoader.script.add({ src: "https://midi-to-json.appspot.com/" + g.split("//")[1] });
     };
