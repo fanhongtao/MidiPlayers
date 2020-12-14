@@ -6,7 +6,6 @@ There are two branches:
 
 # 1 Directories
 
-* [EasyWebSvr](EasyWebSvr) - A tiny web server, used for Microsoft Windows.
 * [piano](piano) - Code for [Color Piano](https://galactic.ink/piano/).
 * [smfplayer.js](smfplayer.js) - Code for [MIDI Player XG](https://logue.dev/smfplayer.js/). Execute `download_extra.sh` before test.
 
@@ -14,9 +13,12 @@ There are two branches:
 
 ## 2.1 Start web server
 
-Start your favorite web server, and set this directory as web `Root`. For example, execute `python3 -m http.server`.
+Start your favorite web server, and set this directory as web `Root`. For example, execute
 
-For window users, you can use [EasyWebSvr](EasyWebSvr) or [Simple Local Http Web Server Software](https://software-download.name/serve-static-files-locally/).
+```bash
+python3 -m http.server --cgi
+```
+
 
 ## 2.2 Try players
 
