@@ -166,7 +166,6 @@ Bach, JS - BWV-0902 Praeludium & Fughetta.mid;\
 Bach, JS - BWV-0903 Chromatic Fantasy & Fugue.mid;\
 Bach, JS - BWV-0906 Mov-01 Fantasia Fantasia & F.mid;\
 Bach, JS - BWV-0906 Mov-02 Fuguee Fantasia & Fugue.mid;\
-Bach, JS - BWV-0910 Toccata No-1 in F#-min.mid;\
 Bach, JS - BWV-0911 Toccata No-2 in C-min.mid;\
 Bach, JS - BWV-0912 Toccata No-3 in D-Major.mid;\
 Bach, JS - BWV-0913 Toccata No-4 in D-min.mid;\
@@ -218,9 +217,7 @@ Bach, JS - Prelude (WTC Bk-1 No-3).mid;\
 Bach, JS - Prelude (WTC Bk-1 No-5.mid;\
 Bach, JS - Prelude (WTC Bk-1 No-7).mid;\
 Bach, JS - Prelude in C (WTC) Bk.1).mid;\
-Bach, JS - PrN\u0303ludium und Fuge in D-Dur, BWV.mid;\
 Bach, JS - Sonata No-1 in C-Maj Op-1 (Na08).mid;\
-Bach, JS - Sonata No-2 in F-sharp-min Op-2 (Tak06).mid;\
 Bach, JS - Sonata No-3 in F-min Op-5 (Yang09).mid;\
 Bach, JS - Sonata No-3 in F-min Op-5 1st Mov (Yang04).mid;\
 Bach, JS - Three Part Inventions (G-min D-min & G-Maj) (Erice01).mid;\
@@ -238,11 +235,7 @@ Beethoven, Ludwig Van - Bagatelle Op-33 No-1.mid;\
 Beethoven, Ludwig Van - Bagatelle Op-33 No-4.mid;\
 Beethoven, Ludwig Van - Fuer Elise.mid;\
 Beethoven, Ludwig Van - Fur Elise.mid;\
-Beethoven, Ludwig Van - Mondscheinsonate (Moonlight Sonata) No.14 in C#-min Op-27-2 (1801) 1st Nov.mid;\
-Beethoven, Ludwig Van - Mondscheinsonate (Moonlight Sonata) No.14 in C#-min Op-27-2 (1801) 2nd Nov.mid;\
-Beethoven, Ludwig Van - Mondscheinsonate (Moonlight Sonata) No.14 in C#-min Op-27-2 (1801) 3rd Nov.mid;\
 Beethoven, Ludwig Van - Moonlight Sonata 1st Mov.mid;\
-Beethoven, Ludwig Van - Moonlight Sonata 2nd Mov .mid;\
 Beethoven, Ludwig Van - Moonlight Sonata Op-27 No-2 Mvt-1.mid;\
 Beethoven, Ludwig Van - Moonlight Sonata Op-27 No-2 Mvt-2.mid;\
 Beethoven, Ludwig Van - Moonlight Sonata Op-27 No-2 Mvt-3.mid;\
@@ -418,7 +411,6 @@ Brahms - Intermezzo No-5, Op-116.mid;\
 Brahms - Intermezzo Op-117 No-3.mid;\
 Brahms - Intermezzo Op-117.mid;\
 Brahms - Intermezzo Op-118.mid;\
-Brahms - Op-09 Piano Variations on Theme (Robert Schumann) F# min.mid;\
 Brahms - Op-117 No-1 Intermezzo in Eb.mid;\
 Brahms - Op-117 No-2 Intermezzo in Bb.mid;\
 Brahms - Op-117 No-3 Intermezzo in D-min.mid;\
@@ -548,7 +540,6 @@ Chopin, Frederic Francois - Ballade No1.mid;\
 Chopin, Frederic Francois - Ballade No2.mid;\
 Chopin, Frederic Francois - Ballade No3.mid;\
 Chopin, Frederic Francois - Ballade No4.mid;\
-Chopin, Frederic Francois - Barcarolle F sharp minor Op-60.mid;\
 Chopin, Frederic Francois - Barcarolle Op-60.mid;\
 Chopin, Frederic Francois - Barcarolle.mid;\
 Chopin, Frederic Francois - Berceuse D flat Major Op-57.mid;\
@@ -559,15 +550,11 @@ Chopin, Frederic Francois - Etude C minor Op-10 No-12 ''Revolutionary''.mid;\
 Chopin, Frederic Francois - Etude C minor Op-25 No-12 (Vladimir Horowitz).mid;\
 Chopin, Frederic Francois - Etude C Op-10 No-12 (Revolutionary).mid;\
 Chopin, Frederic Francois - Etude C Sharp min Op-10.mid;\
-Chopin, Frederic Francois - Etude C sharp minor Op-10 No-03.mid;\
-Chopin, Frederic Francois - Etude C sharp minor Op-10 No-04.mid;\
-Chopin, Frederic Francois - Etude C sharp minor Op-25 No-07.mid;\
 Chopin, Frederic Francois - Etude E flat minor Op-10 No-06.mid;\
 Chopin, Frederic Francois - Etude E Major Op-10 No-03 (Vladimir Horowitz).mid;\
 Chopin, Frederic Francois - Etude E Op-10 No-3.mid;\
 Chopin, Frederic Francois - Etude G flat Major Op-10 No-05.mid;\
 Chopin, Frederic Francois - Etude G flat Major Op-25 No-09.mid;\
-Chopin, Frederic Francois - Etude G sharp minor Op-25 No-06.mid;\
 Chopin, Frederic Francois - Etude G-flat Op-10 No-5 (Black Key).mid;\
 Chopin, Frederic Francois - Etude in A Op-25 No-11.mid;\
 Chopin, Frederic Francois - Etude in A op.25 No-11.mid;\
@@ -589,17 +576,13 @@ Chopin, Frederic Francois - Etude Op-10 No-01.mid;\
 Chopin, Frederic Francois - Etude Op-10 No-05 Schwarze-Tasten.mid;\
 Chopin, Frederic Francois - Etude Op-10 No-12.mid;\
 Chopin, Frederic Francois - Etude Op-10 No-5.mid;\
-Chopin, Frederic Francois - Etude Op-10 NoSchwarze-Tasten-.mid;\
 Chopin, Frederic Francois - Etude Op-25 No-01.mid;\
 Chopin, Frederic Francois - Etude Op-25 No-02.mid;\
 Chopin, Frederic Francois - Etude Op-25 No-03.mid;\
 Chopin, Frederic Francois - Etude Op-25 No-04.mid;\
 Chopin, Frederic Francois - Etude Op-25 No-11.mid;\
 Chopin, Frederic Francois - Etude Op-25 No-12.mid;\
-Chopin, Frederic Francois - Etude Op-25, NSturmetA\u030ade.mid;\
 Chopin, Frederic Francois - Fantaisie-Impromptu in C-sharp Op-66.mid;\
-Chopin, Frederic Francois - Fantasie-Impromptu C sharp minor Op-66.mid;\
-Chopin, Frederic Francois - Fantasie-Impromptu in C#.mid;\
 Chopin, Frederic Francois - Fantesie Improptu.mid;\
 Chopin, Frederic Francois - Fantesie-Improptu.mid;\
 Chopin, Frederic Francois - Grand Valse Brillante in Es-Dur.mid;\
@@ -634,11 +617,6 @@ Chopin, Frederic Francois - Mazurka C Major Op-67 No-03.mid;\
 Chopin, Frederic Francois - Mazurka C Major Op-68 No-02 (posthum).mid;\
 Chopin, Frederic Francois - Mazurka C minor Op-30 No-01.mid;\
 Chopin, Frederic Francois - Mazurka C minor Op-56 No-03.mid;\
-Chopin, Frederic Francois - Mazurka C sharp minor Op-06 No-02.mid;\
-Chopin, Frederic Francois - Mazurka C sharp minor Op-30 No-04.mid;\
-Chopin, Frederic Francois - Mazurka C sharp minor Op-50 No-03.mid;\
-Chopin, Frederic Francois - Mazurka C sharp minor Op-63 No-03.mid;\
-Chopin, Frederic Francois - Mazurka C sharp Op-41 No-01.mid;\
 Chopin, Frederic Francois - Mazurka D flat Major Op-30 No-03.mid;\
 Chopin, Frederic Francois - Mazurka D Major Op-33 No-02.mid;\
 Chopin, Frederic Francois - Mazurka E Major Op-06 No-03.mid;\
@@ -646,15 +624,12 @@ Chopin, Frederic Francois - Mazurka E Major Op-56 No-01.mid;\
 Chopin, Frederic Francois - Mazurka E minor Op-17 No-02.mid;\
 Chopin, Frederic Francois - Mazurka F minor Op-07 No-03.mid;\
 Chopin, Frederic Francois - Mazurka F minor Op-63 No-02.mid;\
-Chopin, Frederic Francois - Mazurka F sharp minor Op-06 No-01.mid;\
-Chopin, Frederic Francois - Mazurka F sharp minor Op-59 No-03.mid;\
 Chopin, Frederic Francois - Mazurka G Major Op-50 No-01.mid;\
 Chopin, Frederic Francois - Mazurka G Major Op-67 No-01.mid;\
 Chopin, Frederic Francois - Mazurka G Major Op-68 No-01 (posthum).mid;\
 Chopin, Frederic Francois - Mazurka G minor Op-24 No-01.mid;\
 Chopin, Frederic Francois - Mazurka G minor Op-67 No-02.mid;\
 Chopin, Frederic Francois - Mazurka G minor Op-68 No-02 (posthum).mid;\
-Chopin, Frederic Francois - Mazurka G sharp minor Op-33 No-01.mid;\
 Chopin, Frederic Francois - Mazurka in B Op-33 No-4.mid;\
 Chopin, Frederic Francois - Mazurka in B-flat Op-7 No-1.mid;\
 Chopin, Frederic Francois - Mazurka in C-sharp Op-63 No-3.mid;\
@@ -700,8 +675,6 @@ Chopin, Frederic Francois - Nocturne B Major Op-32 No-01.mid;\
 Chopin, Frederic Francois - Nocturne B Major Op-62 No-01.mid;\
 Chopin, Frederic Francois - Nocturne C minor Op-48 No-01.mid;\
 Chopin, Frederic Francois - Nocturne C minor.mid;\
-Chopin, Frederic Francois - Nocturne C sharp minor Op-27 No-01.mid;\
-Chopin, Frederic Francois - Nocturne C sharp minor.mid;\
 Chopin, Frederic Francois - Nocturne D flat Major Op-27 No-02.mid;\
 Chopin, Frederic Francois - Nocturne E flat Major Op-09 No-02.mid;\
 Chopin, Frederic Francois - Nocturne E flat Major Op-55 No-02.mid;\
@@ -709,8 +682,6 @@ Chopin, Frederic Francois - Nocturne E Major Op-62 No-02.mid;\
 Chopin, Frederic Francois - Nocturne E minor Op-72 No-01 (Posthum).mid;\
 Chopin, Frederic Francois - Nocturne F Major Op-15 No-01.mid;\
 Chopin, Frederic Francois - Nocturne F minor Op-55 No-01.mid;\
-Chopin, Frederic Francois - Nocturne F sharp Major Op-15 No-02.mid;\
-Chopin, Frederic Francois - Nocturne F sharp minor Op-48 No-02.mid;\
 Chopin, Frederic Francois - Nocturne G Major Op-37 No-02.mid;\
 Chopin, Frederic Francois - Nocturne G minor Op-15 No-03.mid;\
 Chopin, Frederic Francois - Nocturne G minor Op-37 No-01.mid;\
@@ -767,8 +738,6 @@ Chopin, Frederic Francois - Op-10 Etude No-02 in A-min.mid;\
 Chopin, Frederic Francois - Op-10 Etude No-02A Minor.mid;\
 Chopin, Frederic Francois - Op-10 Etude No-03 in E.mid;\
 Chopin, Frederic Francois - Op-10 Etude No-03E.mid;\
-Chopin, Frederic Francois - Op-10 Etude No-04 in C#-min.mid;\
-Chopin, Frederic Francois - Op-10 Etude No-04C# Minor.mid;\
 Chopin, Frederic Francois - Op-10 Etude No-05 in Gb.mid;\
 Chopin, Frederic Francois - Op-10 Etude No-05Gb.mid;\
 Chopin, Frederic Francois - Op-10 Etude No-06 in Eb-min.mid;\
@@ -787,7 +756,6 @@ Chopin, Frederic Francois - Op-10 Etude No-12 in C-min A.mid;\
 Chopin, Frederic Francois - Op-10 Etude No-12C Minor.mid;\
 Chopin, Frederic Francois - Op-10 No-12 Etude No-12.mid;\
 Chopin, Frederic Francois - Op-15 Nocturne No-1 in F.mid;\
-Chopin, Frederic Francois - Op-15 Nocturne No-2 in F#.mid;\
 Chopin, Frederic Francois - Op-15 Nocturne No-3 In G Minor.mid;\
 Chopin, Frederic Francois - Op-15 Nocturne No-3 in G-min.mid;\
 Chopin, Frederic Francois - Op-21 Mov.2 Larghetto 'piano Concer.mid;\
@@ -795,8 +763,6 @@ Chopin, Frederic Francois - Op-25 Etude No-01 (nick Carter).mid;\
 Chopin, Frederic Francois - Op-25 Etude No-01.mid;\
 Chopin, Frederic Francois - Op-25 Etude No-11 [winter Wind] (.mid;\
 Chopin, Frederic Francois - Op-25 Etude No-11 [Winter Wind].mid;\
-Chopin, Frederic Francois - Op-27 Nocturne No-1 In C# Minor.mid;\
-Chopin, Frederic Francois - Op-27 Nocturne No-1 in C#-min.mid;\
 Chopin, Frederic Francois - Op-27 Nocturne No-2 in Db.mid;\
 Chopin, Frederic Francois - Op-28 Prelude in G-min No-04.mid;\
 Chopin, Frederic Francois - Op-32 Nocturne No-1 in B.mid;\
@@ -808,10 +774,6 @@ Chopin, Frederic Francois - Op-37 Nocturne No-2 in G.mid;\
 Chopin, Frederic Francois - Op-37 Nocturne No-2 In Ge.mid;\
 Chopin, Frederic Francois - Op-48 Nocturne No-1 In C Minor.mid;\
 Chopin, Frederic Francois - Op-48 Nocturne No-1 in C-min.mid;\
-Chopin, Frederic Francois - Op-48 Nocturne No-2 In F# Minor.mid;\
-Chopin, Frederic Francois - Op-48 Nocturne No-2 in F#-min.mid;\
-Chopin, Frederic Francois - Op-53 Polonaise In Ab [Heroic].mid;\
-Chopin, Frederic Francois - Op-53 Polonaise in Ab [heroic].mid;\
 Chopin, Frederic Francois - Op-55 Nocturne No-1 In F Minor.mid;\
 Chopin, Frederic Francois - Op-55 Nocturne No-1 in F-min.mid;\
 Chopin, Frederic Francois - Op-55 Nocturne No-2 in Eb.mid;\
@@ -822,28 +784,21 @@ Chopin, Frederic Francois - Op-58 Mov-04 Presto sonata No-3.mid;\
 Chopin, Frederic Francois - Op-58 Mov.1 Allegro Sonata No.3 In.mid;\
 Chopin, Frederic Francois - Op-58 Mov.2 Scherzo Sonata No.3 In.mid;\
 Chopin, Frederic Francois - Op-58 Mov.3 Largo Sonata No.3 In B.mid;\
-Chopin, Frederic Francois - Op-58 Mov.4 Presto Sonata No.3 In .mid;\
 Chopin, Frederic Francois - Op-62 Nocturne No-1 in B.mid;\
 Chopin, Frederic Francois - Op-62 Nocturne No-2 in E.mid;\
 Chopin, Frederic Francois - Op-62 Nocturne No-2 In Ee.mid;\
-Chopin, Frederic Francois - Op-64 Waltz in C#-min No-2.mid;\
 Chopin, Frederic Francois - Op-64 Waltz in Db No-1.mid;\
-Chopin, Frederic Francois - Op-66 'fantaisie-impromptu In C# Mi.mid;\
-Chopin, Frederic Francois - Op-66 Fantaisie-impromptu in C#.mid;\
 Chopin, Frederic Francois - Op-70 Waltz No-2.mid;\
 Chopin, Frederic Francois - Op-72 Nocturne No-1 In E Minor.mid;\
 Chopin, Frederic Francois - Op-72 Nocturne No-1 in E-min.mid;\
-Chopin, Frederic Francois - Op.64 Waltz In C# Minor No.2.mid;\
 Chopin, Frederic Francois - Op.64 Waltz In Db No.1.mid;\
 Chopin, Frederic Francois - Op.70 Waltz No.2.mid;\
 Chopin, Frederic Francois - Piano-Concerto No-02 3rd Mov.mid;\
 Chopin, Frederic Francois - Polonaise A Flat Maj ''Heroic''.mid;\
 Chopin, Frederic Francois - Polonaise A flat Major Op-53 Eroic.mid;\
 Chopin, Frederic Francois - Polonaise A Major Op-40 No-01 Military.mid;\
-Chopin, Frederic Francois - Polonaise F sharp minor Op-44.mid;\
 Chopin, Frederic Francois - Polonaise in A Op-40 No-1 (Military).mid;\
 Chopin, Frederic Francois - Polonaise in A-flat Op-53.mid;\
-Chopin, Frederic Francois - Polonaise in Ab major Op-.mid;\
 Chopin, Frederic Francois - Polonaise No-06 (Heroique).mid;\
 Chopin, Frederic Francois - Polonaise-Fantasie A flat Major Op-61.mid;\
 Chopin, Frederic Francois - Prelude in A Op-28 No-7.mid;\
@@ -909,7 +864,6 @@ Chopin, Frederic Francois - Sonata No-03 B min movement 3.mid;\
 Chopin, Frederic Francois - Sonata No-03 B min movement 4.mid;\
 Chopin, Frederic Francois - Sonata No-03.mid;\
 Chopin, Frederic Francois - Sonate No-02 B-min Op-35 Mov-01.mid;\
-Chopin, Frederic Francois - Sonate No-02 B-min Op-35 Mov-02 .mid;\
 Chopin, Frederic Francois - Sonate No-02 B-min Op-35 Mov-03.mid;\
 Chopin, Frederic Francois - Sonate No-02 B-min Op-35 Mov-04.mid;\
 Chopin, Frederic Francois - Sonate No-03.mid;\
@@ -919,7 +873,6 @@ Chopin, Frederic Francois - Sonate Op-35, 4 Satz.mid;\
 Chopin, Frederic Francois - Sonate Op-35, Trauermarsch.mid;\
 Chopin, Frederic Francois - Waltz in C-sharp Op-64 No-2.mid;\
 Chopin, Frederic Francois - Waltz in D-flat Op-64 No-1 (Minute).mid;\
-Chopin, Frederic Francois - Waltz in E Op-Posth..mid;\
 Chopin, Frederic Francois - Waltz in E Op-Posth.mid;\
 Chopin, Frederic Francois - Waltz in E-flat Op-18.mid;\
 Chopin, Frederic Francois - Waltz Op-Posthume.mid;\
@@ -1146,7 +1099,6 @@ Greig - The Butterfly Op-43 No-1.mid;\
 Greig - To Spring.mid;\
 Greig - To the Spring Op-43 No-6.mid;\
 Greig - To The Spring.mid;\
-Greig - Vi\u0302glein Op-43, No-4.mid;\
 Greig - Wachterlied Op12, No-3.mid;\
 Greig - Wedding Day at Troldhaugen Op-65 No-6.mid;\
 Greig - Wedding Day At Troldhaugen.mid;\
@@ -1505,7 +1457,6 @@ Rachmaninov, Sergei Vasilyevich - Cello Sonata 4.mid;\
 Rachmaninov, Sergei Vasilyevich - Cello Sonata Op-19 Mov-01 (reduced to piano only).mid;\
 Rachmaninov, Sergei Vasilyevich - Cello Sonata Op-19 Mov-02 (reduced to piano only).mid;\
 Rachmaninov, Sergei Vasilyevich - Cello Sonata Op-19 Mov-03 (reduced to piano only).mid;\
-Rachmaninov, Sergei Vasilyevich - Concerto No-01 F sharp min.mid;\
 Rachmaninov, Sergei Vasilyevich - Daisies Op-38 No-03 (1924).mid;\
 Rachmaninov, Sergei Vasilyevich - Elegiac Trio in G-min (reduced to piano only) 1892.mid;\
 Rachmaninov, Sergei Vasilyevich - Etude Tableau Op-33 No-1 in F-min.mid;\
@@ -1515,10 +1466,8 @@ Rachmaninov, Sergei Vasilyevich - Etude Tableau Op-33 No-5 in D-min.mid;\
 Rachmaninov, Sergei Vasilyevich - Etude Tableau Op-33 No-6 in E-flat-min.mid;\
 Rachmaninov, Sergei Vasilyevich - Etude Tableau Op-33 No-7 in Eb-Maj.mid;\
 Rachmaninov, Sergei Vasilyevich - Etude Tableau Op-33 No-8 in G-min.mid;\
-Rachmaninov, Sergei Vasilyevich - Etude Tableau Op-33 No-9 in C-sharp-min.mid;\
 Rachmaninov, Sergei Vasilyevich - Etude Tableau Op-39 No-1 in C-min.mid;\
 Rachmaninov, Sergei Vasilyevich - Etude Tableau Op-39 No-2 in A-min.mid;\
-Rachmaninov, Sergei Vasilyevich - Etude Tableau Op-39 No-3 in F-sharp-min.mid;\
 Rachmaninov, Sergei Vasilyevich - Etude Tableau Op-39 No-4 in B-min.mid;\
 Rachmaninov, Sergei Vasilyevich - Etude Tableau Op-39 No-5 in E-flat-min.mid;\
 Rachmaninov, Sergei Vasilyevich - Etude Tableau Op-39 No-6 in A-min.mid;\
@@ -1544,25 +1493,21 @@ Rachmaninov, Sergei Vasilyevich - Moments Musicaux No-05 in Db-Maj - Adagio sost
 Rachmaninov, Sergei Vasilyevich - Moments Musicaux No-06 in C-Maj - Maestoso Op-16 No-06 (1896).mid;\
 Rachmaninov, Sergei Vasilyevich - Morceau de Fantasie in G-min (1899).mid;\
 Rachmaninov, Sergei Vasilyevich - Morceau de Fantasie Op-03 No-01 Elegie in Eb-min - cb Rach pb Rach (1892).mid;\
-Rachmaninov, Sergei Vasilyevich - Morceau de Fantasie Op-03 No-02 Prelude in C#-min (1892).mid;\
 Rachmaninov, Sergei Vasilyevich - Morceau de Fantasie Op-03 No-03 Melodie (1892).mid;\
 Rachmaninov, Sergei Vasilyevich - Morceau de Fantasie Op-03 No-04 Polichinelle (1892).mid;\
 Rachmaninov, Sergei Vasilyevich - Morceau de Fantasie Op-03 No-05 Serenade (1892).mid;\
 Rachmaninov, Sergei Vasilyevich - No-06.MID;\
-Rachmaninov, Sergei Vasilyevich - Nocturne No-01 in F# min (11888).mid;\
 Rachmaninov, Sergei Vasilyevich - Nocturne No-02 in F-Maj (11888).mid;\
 Rachmaninov, Sergei Vasilyevich - Nocturne No-03 in C-min (11888).mid;\
 Rachmaninov, Sergei Vasilyevich - Op-01 Mov-01 Vivace piano concerto.mid;\
 Rachmaninov, Sergei Vasilyevich - Op-01 Mov-02 Andante piano concerto.mid;\
 Rachmaninov, Sergei Vasilyevich - Op-01 Mov-03 Allegro Vivace.mid;\
-Rachmaninov, Sergei Vasilyevich - Op-03 No-02 Prelude in C#-min.mid;\
 Rachmaninov, Sergei Vasilyevich - Op-16 No-2 in B-flat-min.mid;\
 Rachmaninov, Sergei Vasilyevich - Op-16 No-4 in E-min.mid;\
 Rachmaninov, Sergei Vasilyevich - Op-16 No-6 in C.mid;\
 Rachmaninov, Sergei Vasilyevich - Op-23 No-02 Prelude in B.mid;\
 Rachmaninov, Sergei Vasilyevich - Op-23 No-04 Prelude in D.mid;\
 Rachmaninov, Sergei Vasilyevich - Op-23 No-05 Prelude in G-min.mid;\
-Rachmaninov, Sergei Vasilyevich - Op-32 No-12 Prelude in G#.mid;\
 Rachmaninov, Sergei Vasilyevich - Op-34 No-14 Vocalise.mid;\
 Rachmaninov, Sergei Vasilyevich - Oriental Dance for Cello & Piano Op-02 No-01 (1892) reduced for piano only.mid;\
 Rachmaninov, Sergei Vasilyevich - Oriental Sketch (1917).mid;\
@@ -1571,9 +1516,6 @@ Rachmaninov, Sergei Vasilyevich - Piano Sonata No-01 Op-28 Mov-02 (1907).mid;\
 Rachmaninov, Sergei Vasilyevich - Piano Sonata No-01 Op-28 Mov-03 (1907).mid;\
 Rachmaninov, Sergei Vasilyevich - Polka de WR (1911).mid;\
 Rachmaninov, Sergei Vasilyevich - Prelude for Cello and Piano Op-02 No-01 (reduced to piano only).mid;\
-Rachmaninov, Sergei Vasilyevich - Prelude Op-03 No-02 in C#-min.mid;\
-Rachmaninov, Sergei Vasilyevich - Prelude Op-23 No-01 in F#-min.mid;\
-Rachmaninov, Sergei Vasilyevich - Prelude Op-23 No-02 in C#-min.mid;\
 Rachmaninov, Sergei Vasilyevich - Prelude Op-23 No-03 in D-min.mid;\
 Rachmaninov, Sergei Vasilyevich - Prelude Op-23 No-04 in D.mid;\
 Rachmaninov, Sergei Vasilyevich - Prelude Op-23 No-04.mid;\
@@ -1586,10 +1528,8 @@ Rachmaninov, Sergei Vasilyevich - Prelude Op-23 No-09 in Eb-min.mid;\
 Rachmaninov, Sergei Vasilyevich - Prelude Op-23 No-10 in Gb.mid;\
 Rachmaninov, Sergei Vasilyevich - Prelude Op-32 No-01 in C.mid;\
 Rachmaninov, Sergei Vasilyevich - Prelude Op-32 No-05 in G.mid;\
-Rachmaninov, Sergei Vasilyevich - Prelude Op-32 No-06 in G#.mid;\
 Rachmaninov, Sergei Vasilyevich - Prelude Op-32 No-08 in A-min.mid;\
 Rachmaninov, Sergei Vasilyevich - Prelude Op-32 No-11 in B.mid;\
-Rachmaninov, Sergei Vasilyevich - Prelude Op-32 No-12 in G#-min.mid;\
 Rachmaninov, Sergei Vasilyevich - Romance Op-08 No-02.mid;\
 Rachmaninov, Sergei Vasilyevich - Russian Rhapsody - for 2 pianos (1891) vers-1.mid;\
 Rachmaninov, Sergei Vasilyevich - Russian Rhapsody - for 2 pianos (1891) vers-2.mid;\
@@ -1647,7 +1587,6 @@ Ravel - Ondine from Gaspard de la Nuit.mid;\
 Ravel - Pavane For A Dead Princess.mid;\
 Ravel - Pavane Pour Une Infante Defunde.mid;\
 Robert Schumann - Kreisleriana Op-16 (Jia06).mid;\
-Robert Schumann - Sonata No-1 in F-sharp-min Op-11 (Soukhovetski08).mid;\
 Robert Schumann - Toccata in C-Maj Op-7 (Zhdanov06).mid;\
 Sait-Saens - Beethoven, Ludwig von - Variations.mid;\
 Samuel Barber - Sonata Op-26 4th Mov (Fugue) (Atzinger05).mid;\
@@ -1736,8 +1675,6 @@ Schumann - Kinderszenen Opus Hasche-Mann.mid;\
 Schumann - Kinderszenen Opus Kind im Einschlu.mid;\
 Schumann - Kinderszenen Opus Kuriose Geschich.mid;\
 Schumann - Kinderszenen Opus Ritter vom Steck.mid;\
-Schumann - Kinderszenen Opus TrN\u0303umerei.mid;\
-Schumann - Kinderszenen Opus Von fremden LN\u0303nd.mid;\
 Schumann - Kinderszenen Opus Wichtige Begeben.mid;\
 Schumann - Kinderszenen Opus-15 (1838) A Tale of Distant Lands.mid;\
 Schumann - Kinderszenen Opus-15 (1838) Almost too Serious.mid;\
@@ -1784,7 +1721,6 @@ Schumann - Sechs Moments MuNo-3 f-moll.mid;\
 Schumann - Sechs Moments MuNo-4 cis-moll.mid;\
 Schumann - Sechs Moments MuNo-5 in f-moll.mid;\
 Schumann - Soaring Op-12 No-2.mid;\
-Schumann - Symphonic Etude in C#-min Op-13.mid;\
 Schumann - Symphonic Etudes.mid;\
 Schumann - The Happy Farmer.mid;\
 Schumann - The Poet Speaks Op-15 No-13.mid;\
@@ -1798,10 +1734,6 @@ Scriabin - 01 (Piano).mid;\
 Scriabin - 02 (Piano).mid;\
 Scriabin - 03 (Piano).mid;\
 Scriabin - 04 (Piano).mid;\
-Scriabin - Etude in C#-min Op-02 No-01 (1887).mid;\
-Scriabin - Etude in C-sharpop.2no 11.mid;\
-Scriabin - Etude Op-08 (1894) No-02 in F#.mid;\
-Scriabin - Etude Op-08 (1894) No-12 in E# min.mid;\
 Scriabin - Nocturne For The Left Hand.mid;\
 Serge Rachmaninov, Sergei Vasilyevich - Corelli Vars Op-42 (Zukiewicz03).mid;\
 Serge Rachmaninov, Sergei Vasilyevich - Prelude in B-min Op-32 No-10 (Floril03).mid;\
@@ -1907,7 +1839,7 @@ Tchaikovsky - Nutcracker Suite Op-71a.mid;\
 Tchaikovsky - Old French Song Op-39 No-16.mid;\
 Tchaikovsky - Overture (Nutcracker).mid;\
 Tchaikovsky - Reverie.mid;\
-Tchaikovsky - Romance .mid;\
+Tchaikovsky - Romance.mid;\
 Tchaikovsky - Romance Op-51.mid;\
 Tchaikovsky - Russian Dance (Nutcracker).mid;\
 Tchaikovsky - Song of the Lark Op-39 No-22.mid;\
